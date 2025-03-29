@@ -60,11 +60,7 @@ export const FormList = ({ onSelectForm, onDeleteForm }: FormListProps) => {
                   Open
                 </button>
                 <button
-                  onClick={() => {
-                    if (window.confirm('Are you sure you want to delete this form?')) {
-                      onDeleteForm(form.id);
-                    }
-                  }}
+                  onClick={() => onDeleteForm(form.id)}
                   className="px-3 py-1 bg-red-100 text-red-600 rounded hover:bg-red-200"
                 >
                   Delete

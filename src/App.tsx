@@ -194,7 +194,9 @@ const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<FormSection>('generic');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [formData, setFormData] = useState<FormData>({
+
+  // First, create an initial form state constant
+  const initialFormState: FormData = {
     environments: [],
     formats: [],
     operationType: '',
@@ -316,7 +318,7 @@ const App: React.FC = () => {
           emea: '',
           apac: '',
           latam: ''
-        },
+        }
       },
       dataCenters: [],
       pmpData: '',
@@ -355,179 +357,27 @@ const App: React.FC = () => {
         },
       },
     }
-  });
+  };
+
+  // Use initialFormState in useState
+  const [formData, setFormData] = useState<FormData>(initialFormState);
   const [formId, setFormId] = useState<string | null>(null);
   const [showFormList, setShowFormList] = useState(false);
   const [version, setVersion] = useState(1);
 
-  // Add function to start a new form
+  // Add state for tracking if there are any saved forms
+  const [hasSavedForms, setHasSavedForms] = useState(false);
+
+  // Update startNewForm function
   const startNewForm = () => {
     if (window.confirm('Start a new form? Any unsaved changes will be lost.')) {
-      setFormData({
-        environments: [],
-        formats: [],
-        operationType: '',
-        resoldInventoryProportion: '',
-        sellerCategories: {
-          ownedAndOperated: [],
-          intermediary: []
-        },
-        childDirectedPortion: '',
-        appStores: [],
-        otherAppStores: '',
-        businessName: '',
-        businessDomain: '',
-        hasSellersJson: false,
-        intermediaryInfo: {
-          handlesPayments: false,
-          supportsSupplyChain: false,
-          inventoryProportion: '',
-          canSegmentInventory: false
-        },
-        appCtvInfo: {
-          displaysThirdPartyContent: false,
-          hasContentConsent: false
-        },
-        supplementalContentLink: '',
-        additionalInfo: '',
-        
-        // Section 3: WEB Technical Info
-        webTechnical: {
-          integrationMethods: [],
-          preferredIntegration: '',
-          videoPlayer: '',
-          pricingStrategy: {
-            implementing: false,
-            vendor: '',
-            integrationUsing: '',
-            sovrnOptimization: false
-          },
-          requestVolume: {
-            display: '',
-            video: ''
-          },
-          trafficPercentage: {
-            display: {
-              northAmerica: '',
-              emea: '',
-              apac: '',
-              latam: ''
-            },
-            video: {
-              northAmerica: '',
-              emea: '',
-              apac: '',
-              latam: ''
-            }
-          },
-          dataCenters: [],
-          pmpData: '',
-          sensitiveCategories: []
-        },
-        
-        // Section 4: oRTB Technical
-        ortbTechnical: {
-          impressionTracking: [],
-          videoImpressionTracking: '',
-          adCallFlow: {
-            impressionEvent: '',
-            impressionSide: '',
-            impressionTiming: '',
-            bidCaching: '',
-            tmaxControl: ''
-          },
-          adQuality: {
-            conductScanning: false,
-            scanningPartner: '',
-            scanningRate: '',
-            payloadLimitations: ''
-          },
-          utcReporting: false,
-          ortbRequirements: {
-            version: '',
-            platform: '',
-            documentation: '',
-            extraFields: '',
-            supportsAccountId: false,
-            supportsGzip: false,
-            supportsTagId: false
-          },
-          cookieMatching: {
-            canHostTable: false,
-            tableUrl: '',
-            canInitiateSync: false,
-            requiresDataPoints: false,
-            macros: '',
-            supportsConsent: false,
-            matchRate: '',
-            supportsEids: false,
-            eidsTypes: []
-          }
-        },
-
-        // Section 5: CTV/APP Technical Info
-        ctvAppTechnical: {
-          integrationMethods: [],
-          preferredIntegration: '',
-          requestVolume: {
-            ctv: '',
-            inApp: ''
-          },
-          trafficPercentage: {
-            inApp: {
-              northAmerica: '',
-              emea: '',
-              apac: '',
-              latam: ''
-            },
-            ctv: {
-              northAmerica: '',
-              emea: '',
-              apac: '',
-              latam: ''
-            },
-          },
-          dataCenters: [],
-          pmpData: '',
-          sensitiveCategories: [],
-          
-          // Section 6: Technical Settings
-          technicalSettings: {
-            impressionTracking: [],
-            mobileAppTracking: {
-              burlTiming: '',
-              interstitialTracking: '',
-              additionalInfo: '',
-            },
-            networking: {
-              threePidSupport: '',
-              skAdNetworkSupport: false,
-              adPodsSupport: false,
-            },
-            adQuality: {
-              qualityVendors: '',
-            },
-            ortbRequirements: {
-              multiImpressionSupport: false,
-              multiFormatSupport: false,
-              multiBidSupport: false,
-              demographicDataSupport: false,
-              contentObjectSupport: false,
-              impressionExpiryWindow: '',
-              maxTimeout: false,
-            },
-            inventoryManagement: {
-              requiresMapping: false,
-              mappingGranularity: '',
-              hasRevenueCaps: false,
-              revenueCapsDetails: '',
-            },
-          },
-        }
-      });
+      setFormData(initialFormState);
       setFormId(null);
       localStorage.removeItem('formId');
       setActiveSection('generic');
+      setVersion(1);
+      // Clear URL parameters
+      window.history.pushState({}, '', window.location.pathname);
     }
   };
 
@@ -582,7 +432,7 @@ const App: React.FC = () => {
     }
   };
 
-  // Update useEffect to load form from URL parameter
+  // Update useEffect to check for saved forms
   useEffect(() => {
     const loadSavedForm = async () => {
       // Check URL parameters first
@@ -590,9 +440,19 @@ const App: React.FC = () => {
       const urlFormId = params.get('form');
       const savedFormId = urlFormId || localStorage.getItem('formId');
 
-      if (savedFormId) {
-        setLoading(true);
-        try {
+      try {
+        // First check if there are any forms
+        const { data: forms, error: formsError } = await supabase
+          .from('forms')
+          .select('id');
+
+        if (!formsError && forms) {
+          setHasSavedForms(forms.length > 0);
+        }
+
+        // Then load specific form if ID exists
+        if (savedFormId) {
+          setLoading(true);
           const { data, error } = await supabase
             .from('forms')
             .select('*')
@@ -607,13 +467,13 @@ const App: React.FC = () => {
             setActiveSection(data.active_section);
             localStorage.setItem('formId', data.id);
           }
-        } catch (err) {
-          console.error('Error loading saved form:', err);
-          setError('Failed to load saved form. Starting new form.');
-          localStorage.removeItem('formId');
-        } finally {
-          setLoading(false);
         }
+      } catch (err) {
+        console.error('Error loading saved form:', err);
+        setError('Failed to load saved form. Starting new form.');
+        localStorage.removeItem('formId');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -666,12 +526,14 @@ const App: React.FC = () => {
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold text-gray-900">Sovrn Tech Form</h1>
           <div className="space-x-4">
-            <button
-              onClick={() => setShowFormList(prev => !prev)}
-              className="px-4 py-2 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200"
-            >
-              {showFormList ? 'Hide Forms' : 'Show Saved Forms'}
-            </button>
+            {hasSavedForms && (
+              <button
+                onClick={() => setShowFormList(prev => !prev)}
+                className="px-4 py-2 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200"
+              >
+                {showFormList ? 'Hide Forms' : 'Show Saved Forms'}
+              </button>
+            )}
             <button
               onClick={startNewForm}
               className="px-4 py-2 bg-yellow-400 text-gray-900 rounded-md hover:bg-yellow-500"
@@ -695,8 +557,8 @@ const App: React.FC = () => {
           </div>
         )}
 
-        {/* Form List */}
-        {showFormList && (
+        {/* Show form list only if there are saved forms and button is clicked */}
+        {hasSavedForms && showFormList && (
           <div className="mt-6">
             <FormList 
               onSelectForm={(id) => {
@@ -710,7 +572,12 @@ const App: React.FC = () => {
         )}
       </div>
 
-      {/* Rest of your form */}
+      {/* Show the form when there are no saved forms or form list is hidden */}
+      {(!hasSavedForms || !showFormList) && (
+        <div className="max-w-4xl mx-auto px-4">
+          {/* Your form content goes here */}
+        </div>
+      )}
     </div>
   );
 };
