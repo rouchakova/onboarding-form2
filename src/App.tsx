@@ -521,26 +521,18 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-white">
       {loading && <LoadingSpinner />}
       
-      {/* Header with buttons */}
+      {/* Header - removed Start New Form button */}
       <div className="max-w-4xl mx-auto px-4 pt-6 pb-8">
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold text-gray-900">Sovrn Tech Form</h1>
-          <div className="space-x-4">
-            {hasSavedForms && (
-              <button
-                onClick={() => setShowFormList(prev => !prev)}
-                className="px-4 py-2 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200"
-              >
-                {showFormList ? 'Hide Forms' : 'Show Saved Forms'}
-              </button>
-            )}
+          {hasSavedForms && (
             <button
-              onClick={startNewForm}
-              className="px-4 py-2 bg-yellow-400 text-gray-900 rounded-md hover:bg-yellow-500"
+              onClick={() => setShowFormList(prev => !prev)}
+              className="px-4 py-2 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200"
             >
-              Start New Form
+              {showFormList ? 'Hide Forms' : 'Show Saved Forms'}
             </button>
-          </div>
+          )}
         </div>
         
         {/* Form info */}
@@ -572,10 +564,10 @@ const App: React.FC = () => {
         )}
       </div>
 
-      {/* Show the form when there are no saved forms or form list is hidden */}
-      {(!hasSavedForms || !showFormList) && (
+      {/* Always show the form when form list is not shown */}
+      {!showFormList && (
         <div className="max-w-4xl mx-auto px-4">
-          {/* Your form content goes here */}
+          {/* Your form content remains the same */}
         </div>
       )}
     </div>
