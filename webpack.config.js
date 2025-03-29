@@ -51,14 +51,11 @@ module.exports = {
       template: './public/index.html',
       filename: 'index.html',
       publicPath: '/onboarding-form2/',
-      inject: true,
     }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
         PUBLIC_URL: JSON.stringify('/onboarding-form2'),
-        REACT_APP_SUPABASE_URL: JSON.stringify(process.env.REACT_APP_SUPABASE_URL || ''),
-        REACT_APP_SUPABASE_ANON_KEY: JSON.stringify(process.env.REACT_APP_SUPABASE_ANON_KEY || ''),
       },
     }),
   ],
