@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* React Tabs Custom Styles */
+.react-tabs {
+  width: 100%;
+}
+
+.react-tabs__tab-list {
+  border-bottom: 1px solid #e5e7eb;
+  margin: 0;
+  padding: 0;
+}
+
+.react-tabs__tab {
+  display: inline-block;
+  position: relative;
+  list-style: none;
+  cursor: pointer;
+  padding: 1rem;
+  transition: all 0.2s ease;
+  border-radius: 0.5rem;
+  font-weight: 900;
+}
+
+.react-tabs__tab:hover {
+  outline: 2px solid #facc15;
+  outline-offset: -2px;
+}
+
+.react-tabs__tab--selected {
+  background: #facc15;
+  color: #000000;
+  border-radius: 0.5rem;
+}
+
+.react-tabs__tab:focus {
+  outline: none;
+}
+
+.react-tabs__tab-panel {
+  display: none;
+}
+
+.react-tabs__tab-panel--selected {
+  display: block;
+} 
