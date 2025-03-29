@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FaQuestionCircle } from 'react-icons/fa';
-import { HashRouter as Router } from 'react-router-dom';
 
 interface FormData {
   environments: string[];
@@ -2181,102 +2180,100 @@ const App: React.FC = () => {
   };
 
   return (
-    <Router>
-      <div className="min-h-screen bg-white">
-        {/* Non-sticky title */}
-        <div className="max-w-4xl mx-auto px-4 pt-6 pb-8">
-          <h1 className="text-4xl font-bold text-gray-900 text-center">Sovrn Tech Form</h1>
-        </div>
+    <div className="min-h-screen bg-white">
+      {/* Non-sticky title */}
+      <div className="max-w-4xl mx-auto px-4 pt-6 pb-8">
+        <h1 className="text-4xl font-bold text-gray-900 text-center">Sovrn Tech Form</h1>
+      </div>
 
-        {/* Sticky Header */}
-        <div className="sticky top-0 z-50 bg-white shadow-sm transition-all duration-300">
-          <div className="max-w-4xl mx-auto px-4">
-            {/* Progress Section */}
-            <div className="pb-3">
-              <div className="flex justify-between mb-1">
-                <span className="text-sm text-gray-500">Progress</span>
-                <span className="text-sm text-gray-500">8%</span>
-              </div>
-              <div className="w-full bg-gray-100 rounded-full h-1.5">
-                <div className="bg-yellow-300 h-1.5 rounded-full" style={{ width: '8%' }}></div>
-              </div>
+      {/* Sticky Header */}
+      <div className="sticky top-0 z-50 bg-white shadow-sm transition-all duration-300">
+        <div className="max-w-4xl mx-auto px-4">
+          {/* Progress Section */}
+          <div className="pb-3">
+            <div className="flex justify-between mb-1">
+              <span className="text-sm text-gray-500">Progress</span>
+              <span className="text-sm text-gray-500">8%</span>
             </div>
-
-            {/* Navigation Tabs */}
-            <div className="flex justify-between space-x-3 pb-4">
-              <button 
-                className={`flex-1 rounded-md py-2.5 px-3 text-sm font-medium transition-colors ${
-                  activeSection === 'generic' 
-                    ? 'bg-yellow-100 text-gray-800 hover:bg-yellow-200' 
-                    : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveSection('generic')}
-              >
-                Generic Inventory Mix
-              </button>
-              <button 
-                className={`flex-1 rounded-md py-2.5 px-3 text-sm font-medium transition-colors ${
-                  activeSection === 'web'
-                    ? 'bg-yellow-100 text-gray-800 hover:bg-yellow-200'
-                    : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveSection('web')}
-              >
-                WEB - Technical Info
-              </button>
-              <button 
-                className={`flex-1 rounded-md py-2.5 px-3 text-sm font-medium transition-colors ${
-                  activeSection === 'ctvapp'
-                    ? 'bg-yellow-100 text-gray-800 hover:bg-yellow-200'
-                    : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                }`}
-                onClick={() => setActiveSection('ctvapp')}
-              >
-                CTVAPP - Technical Info
-              </button>
+            <div className="w-full bg-gray-100 rounded-full h-1.5">
+              <div className="bg-yellow-300 h-1.5 rounded-full" style={{ width: '8%' }}></div>
             </div>
           </div>
-        </div>
 
-        {/* Form Content */}
-        <div className="max-w-4xl mx-auto px-4 py-8">
-          <div className="bg-white shadow rounded-3xl p-8">
-            <div className="max-w-3xl mx-auto">
-              {renderFormSection()}
-              
-              {/* Submit and Save Buttons */}
-              <div className="flex justify-end mt-8 space-x-3">
-                <button
-                  type="button"
-                  className="px-4 py-2 bg-white text-gray-600 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:ring-offset-1"
-                  onClick={() => saveFormData('draft')}
-                  disabled={loading}
-                >
-                  {loading ? 'Saving...' : 'Save & Complete Later'}
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-yellow-400 text-gray-900 rounded-md text-sm hover:bg-yellow-500 transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:ring-offset-1"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    saveFormData('submitted');
-                  }}
-                  disabled={loading}
-                >
-                  {loading ? 'Submitting...' : 'Submit Form'}
-                </button>
-              </div>
-
-              {error && (
-                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-md text-red-600 text-sm">
-                  {error}
-                </div>
-              )}
-            </div>
+          {/* Navigation Tabs */}
+          <div className="flex justify-between space-x-3 pb-4">
+            <button 
+              className={`flex-1 rounded-md py-2.5 px-3 text-sm font-medium transition-colors ${
+                activeSection === 'generic' 
+                  ? 'bg-yellow-100 text-gray-800 hover:bg-yellow-200' 
+                  : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
+              }`}
+              onClick={() => setActiveSection('generic')}
+            >
+              Generic Inventory Mix
+            </button>
+            <button 
+              className={`flex-1 rounded-md py-2.5 px-3 text-sm font-medium transition-colors ${
+                activeSection === 'web'
+                  ? 'bg-yellow-100 text-gray-800 hover:bg-yellow-200'
+                  : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
+              }`}
+              onClick={() => setActiveSection('web')}
+            >
+              WEB - Technical Info
+            </button>
+            <button 
+              className={`flex-1 rounded-md py-2.5 px-3 text-sm font-medium transition-colors ${
+                activeSection === 'ctvapp'
+                  ? 'bg-yellow-100 text-gray-800 hover:bg-yellow-200'
+                  : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
+              }`}
+              onClick={() => setActiveSection('ctvapp')}
+            >
+              CTVAPP - Technical Info
+            </button>
           </div>
         </div>
       </div>
-    </Router>
+
+      {/* Form Content */}
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="bg-white shadow rounded-3xl p-8">
+          <div className="max-w-3xl mx-auto">
+            {renderFormSection()}
+            
+            {/* Submit and Save Buttons */}
+            <div className="flex justify-end mt-8 space-x-3">
+              <button
+                type="button"
+                className="px-4 py-2 bg-white text-gray-600 border border-gray-300 rounded-md text-sm hover:bg-gray-50 transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:ring-offset-1"
+                onClick={() => saveFormData('draft')}
+                disabled={loading}
+              >
+                {loading ? 'Saving...' : 'Save & Complete Later'}
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-yellow-400 text-gray-900 rounded-md text-sm hover:bg-yellow-500 transition-colors duration-200 focus:outline-none focus:ring-1 focus:ring-yellow-500 focus:ring-offset-1"
+                onClick={(e) => {
+                  e.preventDefault();
+                  saveFormData('submitted');
+                }}
+                disabled={loading}
+              >
+                {loading ? 'Submitting...' : 'Submit Form'}
+              </button>
+            </div>
+
+            {error && (
+              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-md text-red-600 text-sm">
+                {error}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
