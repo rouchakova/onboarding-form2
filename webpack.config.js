@@ -9,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].chunk.js',
-    publicPath: '/onboarding-form2/',
+    publicPath: './',
     clean: true,
   },
   optimization: {
@@ -54,8 +54,8 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-        PUBLIC_URL: JSON.stringify('/onboarding-form2'),
-        BASE_PATH: JSON.stringify('/onboarding-form2'),
+        PUBLIC_URL: JSON.stringify('.'),
+        BASE_PATH: JSON.stringify('.'),
       },
     }),
   ],
