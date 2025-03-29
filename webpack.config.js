@@ -6,8 +6,8 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
-    publicPath: './',
+    filename: 'bundle.[contenthash].js',
+    publicPath: '/onboarding-form2/',
     clean: true,
   },
   stats: {
@@ -35,6 +35,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       filename: 'index.html',
+      publicPath: '/onboarding-form2/',
     }),
   ],
   devServer: {
