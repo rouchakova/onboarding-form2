@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaQuestionCircle } from 'react-icons/fa';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 interface FormData {
   environments: string[];
@@ -2181,7 +2181,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <HashRouter>
       <div className="min-h-screen bg-white">
         {/* Non-sticky title */}
         <div className="max-w-4xl mx-auto px-4 pt-6 pb-8">
@@ -2276,7 +2276,7 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
