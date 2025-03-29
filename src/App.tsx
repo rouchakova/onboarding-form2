@@ -2181,7 +2181,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <HashRouter>
+    <HashRouter basename="">
       <div className="min-h-screen bg-white">
         {/* Non-sticky title */}
         <div className="max-w-4xl mx-auto px-4 pt-6 pb-8">
