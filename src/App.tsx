@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FaQuestionCircle } from 'react-icons/fa';
-import { supabase } from './lib/supabaseClient';
 import { BrowserRouter } from 'react-router-dom';
 
 interface FormData {
@@ -354,82 +353,18 @@ const App: React.FC = () => {
   });
 
   // Add these state variables
-  const [formId, setFormId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  // Modify the existing useEffect to load data from Supabase
-  useEffect(() => {
-    const loadSavedData = async () => {
-      setLoading(true);
-      try {
-        // First try to get formId from localStorage
-        const savedFormId = localStorage.getItem('formId');
-        
-        if (savedFormId) {
-          const { data, error } = await supabase
-            .from('forms')
-            .select('*')
-            .eq('id', savedFormId)
-            .single();
-
-          if (error) throw error;
-
-          if (data) {
-            setFormId(data.id);
-            setFormData(data.form_data);
-            setActiveSection(data.active_section as FormSection);
-          }
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadSavedData();
-  }, []);
 
   // Add function to save form data
   const saveFormData = async (status: SubmissionStatus = 'draft') => {
     setLoading(true);
     try {
-      const formPayload = {
-        form_data: formData,
-        active_section: activeSection,
-        status: status,
-        updated_at: new Date().toISOString()
-      };
-
-      if (formId) {
-        // Update existing form
-        const { error } = await supabase
-          .from('forms')
-          .update(formPayload)
-          .eq('id', formId);
-
-        if (error) throw error;
-      } else {
-        // Create new form
-        const { data, error } = await supabase
-          .from('forms')
-          .insert([{ ...formPayload, created_at: new Date().toISOString() }])
-          .select()
-          .single();
-
-        if (error) throw error;
-        
-        if (data) {
-          setFormId(data.id);
-          localStorage.setItem('formId', data.id);
-        }
-      }
-
+      // For now, just show an alert
       if (status === 'submitted') {
         alert('Form submitted successfully!');
       } else {
-        alert('Progress saved! You can return to complete the form later.');
+        alert('Progress saved!');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
