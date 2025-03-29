@@ -36,6 +36,7 @@ module.exports = {
       template: './public/index.html',
       filename: 'index.html',
       publicPath: '/onboarding-form2/',
+      inject: true,
     }),
   ],
   devServer: {
