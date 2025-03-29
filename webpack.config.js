@@ -9,7 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].chunk.js',
-    publicPath: '/onboarding-form2/',
+    publicPath: './',
     clean: true,
   },
   optimization: {
@@ -54,8 +54,6 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
-        REACT_APP_SUPABASE_URL: JSON.stringify(process.env.REACT_APP_SUPABASE_URL),
-        REACT_APP_SUPABASE_ANON_KEY: JSON.stringify(process.env.REACT_APP_SUPABASE_ANON_KEY)
       },
     }),
   ],
