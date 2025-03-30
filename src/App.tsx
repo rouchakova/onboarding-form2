@@ -693,150 +693,36 @@ const App: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  Business Name
+                  1.1 Please select all Environments in which you operate:
                   <RequiredIndicator />
                 </label>
                 <input
                   type="text"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                  value={formData.businessName}
-                  onChange={(e) => handleInputChange('businessName', e.target.value)}
+                  value={formData.environments.join(', ')}
+                  onChange={(e) => handleInputChange('environments', e.target.value)}
                   required
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  Business Domain
+                  1.2 Please select all Formats you support:
                   <RequiredIndicator />
                 </label>
                 <input
                   type="text"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                  value={formData.businessDomain}
-                  onChange={(e) => handleInputChange('businessDomain', e.target.value)}
+                  value={formData.formats.join(', ')}
+                  onChange={(e) => handleInputChange('formats', e.target.value)}
                   required
                 />
-              </div>
-            </div>
-
-            {/* Sellers.json */}
-            <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">
-                Do you host a sellers.json file?
-                <RequiredIndicator />
-              </label>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center">
-                  <input
-                    type="radio"
-                    id="sellers-json-yes"
-                    name="sellers-json"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300"
-                    checked={formData.hasSellersJson === true}
-                    onChange={() => setFormData(prev => ({
-                      ...prev,
-                      hasSellersJson: true
-                    }))}
-                    required
-                  />
-                  <label htmlFor="sellers-json-yes" className="ml-2 text-sm text-gray-600">Yes</label>
-                </div>
-                <div className="flex items-center">
-                  <input
-                    type="radio"
-                    id="sellers-json-no"
-                    name="sellers-json"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300"
-                    checked={formData.hasSellersJson === false}
-                    onChange={() => setFormData(prev => ({
-                      ...prev,
-                      hasSellersJson: false,
-                      sellersJsonUrl: '' // Clear the URL when switching to No
-                    }))}
-                  />
-                  <label htmlFor="sellers-json-no" className="ml-2 text-sm text-gray-600">No</label>
-                </div>
-              </div>
-              
-              {formData.hasSellersJson && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Please provide the URL for your JSON file
-                    <RequiredIndicator />
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                    value={formData.sellersJsonUrl}
-                    onChange={(e) => setFormData(prev => ({
-                      ...prev,
-                      sellersJsonUrl: e.target.value
-                    }))}
-                    required
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Environments */}
-            <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">
-                1.1 Please select all Environments in which you operate:
-                <RequiredIndicator />
-              </label>
-              <div className="space-y-2">
-                {['Mobile In-App', 'Desktop In-App', 'CTV/OTT', 'WEB', 'OOH'].map((env) => (
-                  <div key={env} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={`env-${env}`}
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
-                      checked={formData.environments.includes(env)}
-                      onChange={(e) => handleCheckboxChange('environments', env)}
-                    />
-                    <label htmlFor={`env-${env}`} className="ml-2 text-sm text-gray-600">
-                      {env}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Formats */}
-            <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">
-                1.2 Please select all Formats you support:
-                <RequiredIndicator />
-              </label>
-              <div className="space-y-2">
-                {[
-                  'Display',
-                  'Video',
-                  'Interstitial - WEB',
-                  'Interstitial - APP',
-                  'Native - WEB',
-                  'Native - APP'
-                ].map((format) => (
-                  <div key={format} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={`format-${format}`}
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
-                      checked={formData.formats.includes(format)}
-                      onChange={(e) => handleCheckboxChange('formats', format)}
-                    />
-                    <label htmlFor={`format-${format}`} className="ml-2 text-sm text-gray-600">
-                      {format}
-                    </label>
-                  </div>
-                ))}
               </div>
             </div>
 
             {/* Operation Type */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please select your Operation Type
+                1.3 Please select your Operation Type
                 <RequiredIndicator />
               </label>
               <select
@@ -934,7 +820,7 @@ const App: React.FC = () => {
             {/* COPPA Regulation */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                What portion of your inventory is child directed/subject to COPPA regulation?
+                1.6 What portion of your inventory is child directed/subject to COPPA regulation?
               </label>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -951,7 +837,7 @@ const App: React.FC = () => {
             {/* App Stores */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                (APP Specific Question) On what AppStores can your applications be found?
+                1.7 On what AppStores can your applications be found?
               </label>
               <div className="text-sm text-gray-500 mb-2">
                 Note: Sovrn will not monetize App Bundles made accessible for download through third-party APK platforms unaffiliated with Google.
@@ -1158,6 +1044,7 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 2.1 Please Select All Available Integration Methods:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1186,6 +1073,7 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 2.2 Please select your preferred Integration Method:
+                <RequiredIndicator />
               </label>
               <select
                 className="mt-1 block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1210,7 +1098,8 @@ const App: React.FC = () => {
             {/* Request Volume */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Provide Your Monthly Request Volume:
+                2.3 Please Provide Your Monthly Request Volume:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -1255,7 +1144,8 @@ const App: React.FC = () => {
             {/* Traffic Distribution */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Provide Your Traffic Distribution:
+                2.4 Please Provide Your Traffic Distribution:
+                <RequiredIndicator />
               </label>
               <div className="space-y-4">
                 <h4 className="font-medium">Display</h4>
@@ -1325,7 +1215,8 @@ const App: React.FC = () => {
             {/* Data Centers */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Select All Data Centers You Are Connected To:
+                2.5 Please Select All Data Centers You Are Connected To:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-3 gap-4">
                 {['US', 'EU', 'APAC'].map((location) => (
@@ -1345,7 +1236,7 @@ const App: React.FC = () => {
             {/* PMP Data */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
+                2.6 Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1358,7 +1249,7 @@ const App: React.FC = () => {
             {/* Sensitive Categories */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please select all sensitive categories your supply is eligible for:
+                2.7 Please select all sensitive categories your supply is eligible for:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1386,7 +1277,7 @@ const App: React.FC = () => {
             {/* Impression Tracking Methods */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Supported Impression Tracking Method(s)
+                3.1 Supported Impression Tracking Method(s)
               </label>
               <div className="grid grid-cols-1 gap-2">
                 {[
@@ -1418,7 +1309,7 @@ const App: React.FC = () => {
             {/* Video Impression Tracking */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                (Video Specific) - do you support impression tracking by the VAST impression event or nURL/bURL?
+                3.2 Video Specific - do you support impression tracking by the VAST impression event or nURL/bURL?
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1696,7 +1587,8 @@ const App: React.FC = () => {
             {/* Integration Methods */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                3.1 Please Select All Available Integration Methods:
+                4.1 Please Select All Available Integration Methods:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1724,7 +1616,8 @@ const App: React.FC = () => {
             {/* Preferred Integration */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                3.2 Please select your preferred Integration Method:
+                4.2 Please select your preferred Integration Method:
+                <RequiredIndicator />
               </label>
               <select
                 className="mt-1 block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1741,7 +1634,8 @@ const App: React.FC = () => {
             {/* Request Volume */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Provide Your Monthly Request Volume:
+                4.3 Please Provide Your Monthly Request Volume:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-1 gap-4">
                 <div>
@@ -1768,7 +1662,8 @@ const App: React.FC = () => {
             {/* Traffic Distribution */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Provide Your Traffic Distribution:
+                4.4 Please Provide Your Traffic Distribution:
+                <RequiredIndicator />
               </label>
               <div className="space-y-4">
                 <h4 className="font-medium">In-APP</h4>
@@ -1814,7 +1709,8 @@ const App: React.FC = () => {
             {/* Data Centers */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Select All Data Centers You Are Connected To:
+                4.5 Please Select All Data Centers You Are Connected To:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-3 gap-4">
                 {['US', 'EU', 'APAC'].map((location) => (
@@ -1835,7 +1731,7 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
+                  4.6 Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
                 </label>
                 <textarea
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1876,7 +1772,7 @@ const App: React.FC = () => {
             {/* Impression Tracking Methods */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Supported Impression Tracking Method(s)
+                5.1 Supported Impression Tracking Method(s)
               </label>
               <div className="grid grid-cols-1 gap-2">
                 {['ADM', 'BURL', 'nURL (least preferred)'].map((method) => (
@@ -1896,7 +1792,7 @@ const App: React.FC = () => {
             {/* Mobile APP Tracking */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                (Specific to Mobile APP) - When is the BURL fired?
+                5.2 When is the BURL fired?
               </label>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1924,7 +1820,7 @@ const App: React.FC = () => {
             {/* Interstitial Tracking */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                (Specific to Mobile APP) - Do you track Interstitial ads any differently? If so please explain how is the tracking done)
+                5.3 Do you track Interstitial ads any differently?
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
