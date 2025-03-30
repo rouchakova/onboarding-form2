@@ -32,7 +32,7 @@ interface FormData {
   supplementalContentLink?: string;
   additionalInfo?: string;
   
-  // Section 3: WEB Technical Info
+  // WEB Technical Info
   webTechnical: {
     integrationMethods: string[];
     preferredIntegration: string;
@@ -66,7 +66,7 @@ interface FormData {
     sensitiveCategories: string[];
   };
   
-  // Section 4: oRTB Technical
+  // oRTB Technical
   ortbTechnical: {
     impressionTracking: string[];
     videoImpressionTracking: string;
@@ -106,7 +106,7 @@ interface FormData {
     };
   };
 
-  // Section 5: CTV/APP Technical Info
+  // CTV/APP Technical Info
   ctvAppTechnical: {
     integrationMethods: string[];
     preferredIntegration: string;
@@ -132,7 +132,7 @@ interface FormData {
     pmpData: string;
     sensitiveCategories: string[];
     
-    // Section 6: Technical Settings
+    // Technical Settings
     technicalSettings: {
       impressionTracking: string[];
       mobileAppTracking: {
@@ -284,7 +284,7 @@ const App: React.FC = () => {
     supplementalContentLink: '',
     additionalInfo: '',
     
-    // Section 3: WEB Technical Info
+    // WEB Technical Info
     webTechnical: {
       integrationMethods: [],
       preferredIntegration: '',
@@ -318,7 +318,7 @@ const App: React.FC = () => {
       sensitiveCategories: []
     },
     
-    // Section 4: oRTB Technical
+    // oRTB Technical
     ortbTechnical: {
       impressionTracking: [],
       videoImpressionTracking: '',
@@ -358,7 +358,7 @@ const App: React.FC = () => {
       }
     },
 
-    // Section 5: CTV/APP Technical Info
+    // CTV/APP Technical Info
     ctvAppTechnical: {
       integrationMethods: [],
       preferredIntegration: '',
@@ -384,7 +384,7 @@ const App: React.FC = () => {
       pmpData: '',
       sensitiveCategories: [],
       
-      // Section 6: Technical Settings
+      // Technical Settings
       technicalSettings: {
         impressionTracking: [],
         mobileAppTracking: {
@@ -884,7 +884,7 @@ const App: React.FC = () => {
             {/* Seller Categories */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                1.d. Which category of seller best suits your offering?
+                Which category of seller best suits your offering?
               </label>
               
               <div className="space-y-4">
@@ -934,7 +934,7 @@ const App: React.FC = () => {
             {/* COPPA Regulation */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                1.e. What portion of your inventory is child directed/subject to COPPA regulation?
+                What portion of your inventory is child directed/subject to COPPA regulation?
               </label>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -951,7 +951,7 @@ const App: React.FC = () => {
             {/* App Stores */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                1.f. (APP Specific Question) On what AppStores can your applications be found?
+                (APP Specific Question) On what AppStores can your applications be found?
               </label>
               <div className="text-sm text-gray-500 mb-2">
                 Note: Sovrn will not monetize App Bundles made accessible for download through third-party APK platforms unaffiliated with Google.
@@ -992,7 +992,7 @@ const App: React.FC = () => {
 
             {/* Intermediary Information */}
             <div className="space-y-4">
-              <h3 className="font-medium">2.a. For Entities Acting as An Intermediary:</h3>
+              <h3 className="font-medium">For Entities Acting as An Intermediary:</h3>
               
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -1076,7 +1076,7 @@ const App: React.FC = () => {
 
             {/* APP/CTV Platform Questions */}
             <div className="space-y-4">
-              <h3 className="font-medium">2.d. For MVPD/FAST Platforms and Select App Developers:</h3>
+              <h3 className="font-medium">For MVPD/FAST Platforms and Select App Developers:</h3>
               
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -1119,7 +1119,7 @@ const App: React.FC = () => {
 
             {/* Supplemental Content Solutions */}
             <div className="space-y-4">
-              <h3 className="font-medium">2.e. For Supplemental Content Solutions or Syndication Partners:</h3>
+              <h3 className="font-medium">For Supplemental Content Solutions or Syndication Partners:</h3>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700">
@@ -1350,7 +1350,7 @@ const App: React.FC = () => {
             {/* PMP Data */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                3.h. Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
+                Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1363,7 +1363,7 @@ const App: React.FC = () => {
             {/* Sensitive Categories */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                3.i. Please select all sensitive categories your supply is eligible for:
+                Please select all sensitive categories your supply is eligible for:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1391,7 +1391,7 @@ const App: React.FC = () => {
             {/* Impression Tracking Methods */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                4.a. Supported Impression Tracking Method(s)
+                Supported Impression Tracking Method(s)
               </label>
               <div className="grid grid-cols-1 gap-2">
                 {[
@@ -1423,7 +1423,7 @@ const App: React.FC = () => {
             {/* Video Impression Tracking */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                4.b. (Video Specific) - do you support impression tracking by the VAST impression event or nURL/bURL?
+                (Video Specific) - do you support impression tracking by the VAST impression event or nURL/bURL?
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1475,7 +1475,7 @@ const App: React.FC = () => {
 
             {/* Ad Quality */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">4.d. Ad Quality</h3>
+              <h3 className="text-md font-medium">Ad Quality</h3>
               
               <div className="flex items-center">
                 <input
@@ -1528,7 +1528,7 @@ const App: React.FC = () => {
 
             {/* Reporting */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">4.e. Reporting</h3>
+              <h3 className="text-md font-medium">Reporting</h3>
               
               <div className="flex items-center">
                 <input
@@ -1551,7 +1551,7 @@ const App: React.FC = () => {
 
             {/* oRTB Requirements */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">4.f. oRTB Requirements</h3>
+              <h3 className="text-md font-medium">oRTB Requirements</h3>
               
               <div className="space-y-4">
                 {/* Text input fields */}
@@ -1611,7 +1611,7 @@ const App: React.FC = () => {
 
             {/* Cookie Matching */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">4.g. Cookie Matching</h3>
+              <h3 className="text-md font-medium">Cookie Matching</h3>
               
               <div className="space-y-4">
                 {/* Boolean fields */}
@@ -1845,7 +1845,7 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  5.f. Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
+                  Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
                 </label>
                 <textarea
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1880,13 +1880,13 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Section 6: Technical Settings */}
+            {/* Technical Settings */}
             <h2 className="text-xl font-bold mt-8">Technical Settings</h2>
 
             {/* Impression Tracking Methods */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                6.a. Supported Impression Tracking Method(s)
+                Supported Impression Tracking Method(s)
               </label>
               <div className="grid grid-cols-1 gap-2">
                 {['ADM', 'BURL', 'nURL (least preferred)'].map((method) => (
@@ -1906,7 +1906,7 @@ const App: React.FC = () => {
             {/* Mobile APP Tracking */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                6.b. (Specific to Mobile APP) - When is the BURL fired?
+                (Specific to Mobile APP) - When is the BURL fired?
               </label>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1934,7 +1934,7 @@ const App: React.FC = () => {
             {/* Interstitial Tracking */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                6.c. (Specific to Mobile APP) - Do you track Interstitial ads any differently? If so please explain how is the tracking done)
+                (Specific to Mobile APP) - Do you track Interstitial ads any differently? If so please explain how is the tracking done)
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1959,7 +1959,7 @@ const App: React.FC = () => {
             {/* Additional Tracking Info */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                6.d. Do you have any other relevant information in regards to Impression Tracking that you would like to disclose?
+                Do you have any other relevant information in regards to Impression Tracking that you would like to disclose?
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1983,10 +1983,10 @@ const App: React.FC = () => {
 
             {/* Networking and Servers */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">6.e. Networking and Servers</h3>
+              <h3 className="text-sm font-medium text-gray-700 mb-4">Networking and Servers</h3>
               
               <div>
-                <label className="block text-sm text-gray-700">3PID support? (Please list all that you support):</label>
+                <label className="block text-sm font-medium text-gray-700">3PID support? (Please list all that you support):</label>
                 <input
                   type="text"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -2054,7 +2054,7 @@ const App: React.FC = () => {
 
             {/* Ad Quality */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">6.f. Ad Quality</h3>
+              <h3 className="text-sm font-medium text-gray-700 mb-4">Ad Quality</h3>
               
               <div>
                 <label className="block text-sm text-gray-700">
@@ -2083,7 +2083,7 @@ const App: React.FC = () => {
 
             {/* oRTB Requirements */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">6.g. oRTB Requirements</h3>
+              <h3 className="text-sm font-medium text-gray-700 mb-4">oRTB Requirements</h3>
               
               <div className="space-y-4">
                 {[
@@ -2164,7 +2164,7 @@ const App: React.FC = () => {
 
             {/* Inventory Management */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">6.h. Inventory Management</h3>
+              <h3 className="text-sm font-medium text-gray-700 mb-4">Inventory Management</h3>
               
               <div className="space-y-4">
                 <div>
@@ -2296,7 +2296,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-white">
       {/* Non-sticky title */}
       <div className="max-w-4xl mx-auto px-4 pt-6 pb-8">
-        <h1 className="text-4xl font-bold text-gray-900 text-center">Sovrn Tech Form</h1>
+        <h1 className="text-4xl font-bold text-gray-900 text-center">Sovrn Technical RFI</h1>
       </div>
 
       {/* Sticky Header */}
