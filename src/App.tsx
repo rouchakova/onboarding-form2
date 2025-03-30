@@ -32,7 +32,7 @@ interface FormData {
   supplementalContentLink?: string;
   additionalInfo?: string;
   
-  // WEB Technical Info
+  // Section 3: WEB Technical Info
   webTechnical: {
     integrationMethods: string[];
     preferredIntegration: string;
@@ -66,7 +66,7 @@ interface FormData {
     sensitiveCategories: string[];
   };
   
-  // oRTB Technical
+  // Section 4: oRTB Technical
   ortbTechnical: {
     impressionTracking: string[];
     videoImpressionTracking: string;
@@ -106,7 +106,7 @@ interface FormData {
     };
   };
 
-  // CTV/APP Technical Info
+  // Section 5: CTV/APP Technical Info
   ctvAppTechnical: {
     integrationMethods: string[];
     preferredIntegration: string;
@@ -132,7 +132,7 @@ interface FormData {
     pmpData: string;
     sensitiveCategories: string[];
     
-    // Technical Settings
+    // Section 6: Technical Settings
     technicalSettings: {
       impressionTracking: string[];
       mobileAppTracking: {
@@ -284,7 +284,7 @@ const App: React.FC = () => {
     supplementalContentLink: '',
     additionalInfo: '',
     
-    // WEB Technical Info
+    // Section 3: WEB Technical Info
     webTechnical: {
       integrationMethods: [],
       preferredIntegration: '',
@@ -318,7 +318,7 @@ const App: React.FC = () => {
       sensitiveCategories: []
     },
     
-    // oRTB Technical
+    // Section 4: oRTB Technical
     ortbTechnical: {
       impressionTracking: [],
       videoImpressionTracking: '',
@@ -358,7 +358,7 @@ const App: React.FC = () => {
       }
     },
 
-    // CTV/APP Technical Info
+    // Section 5: CTV/APP Technical Info
     ctvAppTechnical: {
       integrationMethods: [],
       preferredIntegration: '',
@@ -384,7 +384,7 @@ const App: React.FC = () => {
       pmpData: '',
       sensitiveCategories: [],
       
-      // Technical Settings
+      // Section 6: Technical Settings
       technicalSettings: {
         impressionTracking: [],
         mobileAppTracking: {
@@ -781,7 +781,7 @@ const App: React.FC = () => {
             {/* Environments */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                1.1 Please select all Environments in which you operate:
+                Please select all Environments in which you operate
                 <RequiredIndicator />
               </label>
               <div className="space-y-2">
@@ -805,7 +805,7 @@ const App: React.FC = () => {
             {/* Formats */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                1.2 Please select all Formats you support:
+                Please select all Formats you support
                 <RequiredIndicator />
               </label>
               <div className="space-y-2">
@@ -840,7 +840,7 @@ const App: React.FC = () => {
                 <RequiredIndicator />
               </label>
               <select
-                className="mt-1 block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
                 value={formData.operationType}
                 onChange={(e) => handleInputChange('operationType', e.target.value)}
                 required
@@ -884,7 +884,7 @@ const App: React.FC = () => {
             {/* Seller Categories */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Which category of seller best suits your offering?
+                1.d. Which category of seller best suits your offering?
               </label>
               
               <div className="space-y-4">
@@ -934,7 +934,7 @@ const App: React.FC = () => {
             {/* COPPA Regulation */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                What portion of your inventory is child directed/subject to COPPA regulation?
+                1.e. What portion of your inventory is child directed/subject to COPPA regulation?
               </label>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -951,7 +951,7 @@ const App: React.FC = () => {
             {/* App Stores */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                (APP Specific Question) On what AppStores can your applications be found?
+                1.f. (APP Specific Question) On what AppStores can your applications be found?
               </label>
               <div className="text-sm text-gray-500 mb-2">
                 Note: Sovrn will not monetize App Bundles made accessible for download through third-party APK platforms unaffiliated with Google.
@@ -992,7 +992,7 @@ const App: React.FC = () => {
 
             {/* Intermediary Information */}
             <div className="space-y-4">
-              <h3 className="font-medium">For Entities Acting as An Intermediary:</h3>
+              <h3 className="font-medium">2.a. For Entities Acting as An Intermediary:</h3>
               
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -1076,7 +1076,7 @@ const App: React.FC = () => {
 
             {/* APP/CTV Platform Questions */}
             <div className="space-y-4">
-              <h3 className="font-medium">For MVPD/FAST Platforms and Select App Developers:</h3>
+              <h3 className="font-medium">2.d. For MVPD/FAST Platforms and Select App Developers:</h3>
               
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -1119,7 +1119,7 @@ const App: React.FC = () => {
 
             {/* Supplemental Content Solutions */}
             <div className="space-y-4">
-              <h3 className="font-medium">For Supplemental Content Solutions or Syndication Partners:</h3>
+              <h3 className="font-medium">2.e. For Supplemental Content Solutions or Syndication Partners:</h3>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700">
@@ -1151,13 +1151,13 @@ const App: React.FC = () => {
         );
       case 'web':
         return (
-          <div className="space-y-6">
+          <div className="space-y-8">
             <h2 className="text-xl font-bold">WEB Technical Info</h2>
-            
+
             {/* Integration Methods */}
           <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                2.1 Please Select All Available Integration Methods:
+                Please Select All Available Integration Methods:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1183,12 +1183,12 @@ const App: React.FC = () => {
             </div>
 
             {/* Preferred Integration */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                2.2 Please select your preferred Integration Method:
+                3.b. Please select your preferred Integration Method
               </label>
               <select
-                className="mt-1 block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
                 value={formData.webTechnical.preferredIntegration}
                 onChange={(e) => handleWebTechnicalChange('preferredIntegration', e.target.value)}
               >
@@ -1207,10 +1207,88 @@ const App: React.FC = () => {
               </select>
             </div>
 
-            {/* Request Volume */}
+            {/* Video Player */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                3.c. Which Video Player are you using?
+              </label>
+              <textarea
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                rows={4}
+                placeholder="List out all the players currently in use with relevant details"
+                value={formData.webTechnical.videoPlayer}
+                onChange={(e) => handleWebTechnicalChange('videoPlayer', e.target.value)}
+              />
+            </div>
+
+            {/* Pricing Strategy Section */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium">Pricing Strategy</h3>
+              
+              {/* Pricing Strategy */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  3.d. Are you currently implementing any Pricing Strategy?
+                </label>
+                <select
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  value={formData.webTechnical.pricingStrategy.implementing ? 'yes' : 'no'}
+                  onChange={(e) => handlePricingStrategyChange(e.target.value === 'yes')}
+                >
+                  <option value="no">No</option>
+                  <option value="yes">Yes</option>
+                </select>
+              </div>
+
+              {formData.webTechnical.pricingStrategy.implementing && (
+                <div className="space-y-4 pl-4 border-l-2 border-yellow-200">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Which vendor are you currently using OR can you elaborate on your strategy?
+                    </label>
+                    <textarea
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                      rows={3}
+                      value={formData.webTechnical.pricingStrategy.vendor}
+                      onChange={(e) => handlePricingStrategyDetailChange('vendor', e.target.value)}
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      On which integration are you currently using Floors?
+                    </label>
+                    <input
+                      type="text"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                      value={formData.webTechnical.pricingStrategy.integrationUsing}
+                      onChange={(e) => handlePricingStrategyDetailChange('integrationUsing', e.target.value)}
+                    />
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      checked={formData.webTechnical.pricingStrategy.sovrnOptimization}
+                      onChange={(e) => handlePricingStrategyDetailChange('sovrnOptimization', e.target.checked)}
+                    />
+                    <label className="ml-2 text-sm text-gray-600">
+                      Are you comfortable with Sovrn optimising your traffic with Floors?
+                    </label>
+                  </div>
+                </div>
+              )}
+
+              <div className="bg-gray-50 p-4 rounded-md text-sm text-gray-600">
+                Please note that Sovrn's Dynamic Floors will always honour, as a hard floor, the floor passed in the bid stream
+              </div>
+            </div>
+
+            {/* Total Request Volume */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Provide Your Monthly Request Volume:
+                3.e. Total Request Volume - Please specify if daily or monthly:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -1252,11 +1330,13 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Traffic Distribution */}
-            <div className="space-y-4">
+            {/* Traffic Percentage by Region */}
+            <div className="space-y-6">
               <label className="block text-sm font-medium text-gray-700">
-                Please Provide Your Traffic Distribution:
+                3.f. Percentage of available traffic in the following regions:
               </label>
+              
+              {/* Display Traffic */}
               <div className="space-y-4">
                 <h4 className="font-medium">Display</h4>
                 <div className="grid grid-cols-2 gap-4">
@@ -1288,7 +1368,10 @@ const App: React.FC = () => {
                     </div>
                   ))}
                 </div>
+              </div>
 
+              {/* Video Traffic */}
+              <div className="space-y-4">
                 <h4 className="font-medium">Video</h4>
                 <div className="grid grid-cols-2 gap-4">
                   {['northAmerica', 'emea', 'apac', 'latam'].map((region) => (
@@ -1325,7 +1408,7 @@ const App: React.FC = () => {
             {/* Data Centers */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Select All Data Centers You Are Connected To:
+                3.g. Please outline where your Data Centres are located:
               </label>
               <div className="grid grid-cols-3 gap-4">
                 {['US', 'EU', 'APAC'].map((location) => (
@@ -1345,7 +1428,7 @@ const App: React.FC = () => {
             {/* PMP Data */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
+                3.h. Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1358,7 +1441,7 @@ const App: React.FC = () => {
             {/* Sensitive Categories */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please select all sensitive categories your supply is eligible for:
+                3.i. Please select all sensitive categories your supply is eligible for:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1386,7 +1469,7 @@ const App: React.FC = () => {
             {/* Impression Tracking Methods */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Supported Impression Tracking Method(s)
+                4.a. Supported Impression Tracking Method(s)
               </label>
               <div className="grid grid-cols-1 gap-2">
                 {[
@@ -1418,7 +1501,7 @@ const App: React.FC = () => {
             {/* Video Impression Tracking */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                (Video Specific) - do you support impression tracking by the VAST impression event or nURL/bURL?
+                4.b. (Video Specific) - do you support impression tracking by the VAST impression event or nURL/bURL?
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1470,7 +1553,7 @@ const App: React.FC = () => {
 
             {/* Ad Quality */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">Ad Quality</h3>
+              <h3 className="text-md font-medium">4.d. Ad Quality</h3>
               
               <div className="flex items-center">
                 <input
@@ -1523,7 +1606,7 @@ const App: React.FC = () => {
 
             {/* Reporting */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">Reporting</h3>
+              <h3 className="text-md font-medium">4.e. Reporting</h3>
               
               <div className="flex items-center">
                 <input
@@ -1546,7 +1629,7 @@ const App: React.FC = () => {
 
             {/* oRTB Requirements */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">oRTB Requirements</h3>
+              <h3 className="text-md font-medium">4.f. oRTB Requirements</h3>
               
               <div className="space-y-4">
                 {/* Text input fields */}
@@ -1606,7 +1689,7 @@ const App: React.FC = () => {
 
             {/* Cookie Matching */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">Cookie Matching</h3>
+              <h3 className="text-md font-medium">4.g. Cookie Matching</h3>
               
               <div className="space-y-4">
                 {/* Boolean fields */}
@@ -1690,13 +1773,13 @@ const App: React.FC = () => {
         );
       case 'ctvapp':
         return (
-          <div className="space-y-6">
+          <div className="space-y-8">
             <h2 className="text-xl font-bold">CTV/APP Technical Info</h2>
-            
+
             {/* Integration Methods */}
           <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                3.1 Please Select All Available Integration Methods:
+                Please Select All Available Integration Methods:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1722,12 +1805,12 @@ const App: React.FC = () => {
             </div>
 
             {/* Preferred Integration */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                3.2 Please select your preferred Integration Method:
+                5.b. Please select your preferred Integration Method
               </label>
               <select
-                className="mt-1 block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
                 value={formData.ctvAppTechnical.preferredIntegration}
                 onChange={(e) => handleCtvAppChange('preferredIntegration', e.target.value)}
               >
@@ -1741,7 +1824,7 @@ const App: React.FC = () => {
             {/* Request Volume */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Provide Your Monthly Request Volume:
+                5.c. Total Request Volume (Please specify if daily or monthly):
               </label>
               <div className="grid grid-cols-1 gap-4">
                 <div>
@@ -1765,11 +1848,13 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Traffic Distribution */}
-            <div className="space-y-4">
+            {/* Traffic Percentage */}
+            <div className="space-y-6">
               <label className="block text-sm font-medium text-gray-700">
-                Please Provide Your Traffic Distribution:
+                5.d. Percentage of available traffic in the following regions:
               </label>
+              
+              {/* In-APP Traffic */}
               <div className="space-y-4">
                 <h4 className="font-medium">In-APP</h4>
                 <div className="grid grid-cols-2 gap-4">
@@ -1789,7 +1874,10 @@ const App: React.FC = () => {
                     </div>
                   ))}
                 </div>
+              </div>
 
+              {/* CTV Traffic */}
+              <div className="space-y-4">
                 <h4 className="font-medium">CTV</h4>
                 <div className="grid grid-cols-2 gap-4">
                   {['northAmerica', 'emea', 'apac', 'latam'].map((region) => (
@@ -1814,7 +1902,7 @@ const App: React.FC = () => {
             {/* Data Centers */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Select All Data Centers You Are Connected To:
+                5.e. Please outline where your Data Centres are located:
               </label>
               <div className="grid grid-cols-3 gap-4">
                 {['US', 'EU', 'APAC'].map((location) => (
@@ -1835,7 +1923,7 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
+                  5.f. Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
                 </label>
                 <textarea
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1870,13 +1958,13 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Technical Settings */}
+            {/* Section 6: Technical Settings */}
             <h2 className="text-xl font-bold mt-8">Technical Settings</h2>
 
             {/* Impression Tracking Methods */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Supported Impression Tracking Method(s)
+                6.a. Supported Impression Tracking Method(s)
               </label>
               <div className="grid grid-cols-1 gap-2">
                 {['ADM', 'BURL', 'nURL (least preferred)'].map((method) => (
@@ -1896,7 +1984,7 @@ const App: React.FC = () => {
             {/* Mobile APP Tracking */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                (Specific to Mobile APP) - When is the BURL fired?
+                6.b. (Specific to Mobile APP) - When is the BURL fired?
               </label>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1924,7 +2012,7 @@ const App: React.FC = () => {
             {/* Interstitial Tracking */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                (Specific to Mobile APP) - Do you track Interstitial ads any differently? If so please explain how is the tracking done)
+                6.c. (Specific to Mobile APP) - Do you track Interstitial ads any differently? If so please explain how is the tracking done)
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1949,7 +2037,7 @@ const App: React.FC = () => {
             {/* Additional Tracking Info */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Do you have any other relevant information in regards to Impression Tracking that you would like to disclose?
+                6.d. Do you have any other relevant information in regards to Impression Tracking that you would like to disclose?
               </label>
               <textarea
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1973,10 +2061,10 @@ const App: React.FC = () => {
 
             {/* Networking and Servers */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-4">Networking and Servers</h3>
+              <h3 className="text-md font-medium">6.e. Networking and Servers</h3>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700">3PID support? (Please list all that you support):</label>
+                <label className="block text-sm text-gray-700">3PID support? (Please list all that you support):</label>
                 <input
                   type="text"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -2044,7 +2132,7 @@ const App: React.FC = () => {
 
             {/* Ad Quality */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-4">Ad Quality</h3>
+              <h3 className="text-md font-medium">6.f. Ad Quality</h3>
               
               <div>
                 <label className="block text-sm text-gray-700">
@@ -2073,7 +2161,7 @@ const App: React.FC = () => {
 
             {/* oRTB Requirements */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-4">oRTB Requirements</h3>
+              <h3 className="text-md font-medium">6.g. oRTB Requirements</h3>
               
               <div className="space-y-4">
                 {[
@@ -2154,7 +2242,7 @@ const App: React.FC = () => {
 
             {/* Inventory Management */}
             <div className="space-y-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-4">Inventory Management</h3>
+              <h3 className="text-md font-medium">6.h. Inventory Management</h3>
               
               <div className="space-y-4">
                 <div>
@@ -2267,12 +2355,6 @@ const App: React.FC = () => {
 
   // Add validation functions
   const validateWebSection = (): boolean => {
-    const webRequired = hasWebOptions(formData);
-    
-    if (!webRequired) {
-      return true; // Skip validation if web options aren't selected
-    }
-
     return formData.webTechnical.integrationMethods.length > 0 &&
            formData.webTechnical.preferredIntegration !== '' &&
            (formData.webTechnical.requestVolume.display !== '' || formData.webTechnical.requestVolume.video !== '') &&
@@ -2281,12 +2363,6 @@ const App: React.FC = () => {
   };
 
   const validateCtvAppSection = (): boolean => {
-    const ctvAppRequired = hasCtvAppOptions(formData);
-    
-    if (!ctvAppRequired) {
-      return true; // Skip validation if CTV/APP options aren't selected
-    }
-
     return formData.ctvAppTechnical.integrationMethods.length > 0 &&
            formData.ctvAppTechnical.preferredIntegration !== '' &&
            (formData.ctvAppTechnical.requestVolume.ctv !== '' || formData.ctvAppTechnical.requestVolume.inApp !== '') &&
@@ -2298,7 +2374,7 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-white">
       {/* Non-sticky title */}
       <div className="max-w-4xl mx-auto px-4 pt-6 pb-8">
-        <h1 className="text-4xl font-bold text-gray-900 text-center">Sovrn Technical RFI</h1>
+        <h1 className="text-4xl font-bold text-gray-900 text-center">Sovrn Tech Form</h1>
       </div>
 
       {/* Sticky Header */}
