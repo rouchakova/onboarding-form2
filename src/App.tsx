@@ -187,6 +187,48 @@ type CookieMatchingField = CookieMatchingTextFields | CookieMatchingBooleanField
 // Add this type for the form submission status
 type SubmissionStatus = 'draft' | 'submitted';
 
+// Add this function near your other functions but before the App component
+const calculateProgress = (formData: FormData): number => {
+  let totalFields = 0;
+  let filledFields = 0;
+
+  // Generic section required fields
+  const genericRequired = [
+    formData.environments.length > 0,
+    formData.formats.length > 0,
+    formData.operationType !== '',
+    formData.businessName !== '',
+    formData.businessDomain !== '',
+  ];
+
+  // Web Technical section required fields
+  const webRequired = [
+    formData.webTechnical.integrationMethods.length > 0,
+    formData.webTechnical.preferredIntegration !== '',
+    formData.webTechnical.requestVolume.display !== '' || formData.webTechnical.requestVolume.video !== '',
+    Object.values(formData.webTechnical.trafficPercentage.display).some(v => v !== ''),
+    formData.webTechnical.dataCenters.length > 0,
+  ];
+
+  // CTV/APP Technical section required fields
+  const ctvRequired = [
+    formData.ctvAppTechnical.integrationMethods.length > 0,
+    formData.ctvAppTechnical.preferredIntegration !== '',
+    formData.ctvAppTechnical.requestVolume.ctv !== '' || formData.ctvAppTechnical.requestVolume.inApp !== '',
+    Object.values(formData.ctvAppTechnical.trafficPercentage.inApp).some(v => v !== ''),
+    formData.ctvAppTechnical.dataCenters.length > 0,
+  ];
+
+  // Count total and filled fields
+  totalFields = genericRequired.length + webRequired.length + ctvRequired.length;
+  filledFields += genericRequired.filter(Boolean).length;
+  filledFields += webRequired.filter(Boolean).length;
+  filledFields += ctvRequired.filter(Boolean).length;
+
+  // Calculate percentage
+  return Math.round((filledFields / totalFields) * 100);
+};
+
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<FormSection>('generic');
   const [formData, setFormData] = useState<FormData>({
@@ -355,6 +397,15 @@ const App: React.FC = () => {
   // Add these state variables
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Add this to track progress
+  const [progress, setProgress] = useState<number>(0);
+
+  // Update progress whenever form data changes
+  useEffect(() => {
+    const newProgress = calculateProgress(formData);
+    setProgress(newProgress);
+  }, [formData]);
 
   // Replace the existing saveFormData function with this one:
   const saveFormData = async (status: SubmissionStatus = 'draft') => {
@@ -577,10 +628,81 @@ const App: React.FC = () => {
           <div className="space-y-6">
             <h2 className="text-xl font-bold">Section 1: Inventory Mix</h2>
             
-            {/* 1.a. Environments */}
+            {/* Moved 2.a. Business Information to the top */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Business Name
+                </label>
+                <input
+                  type="text"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  value={formData.businessName}
+                  onChange={(e) => handleInputChange('businessName', e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Business Domain
+                </label>
+                <input
+                  type="text"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  value={formData.businessDomain}
+                  onChange={(e) => handleInputChange('businessDomain', e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* Moved 2.b. Sellers.json next */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                1.a. Please select all Environments in which you operate:
+                Do you host a sellers.json file?
+              </label>
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center">
+                  <input
+                    type="radio"
+                    id="sellers-json-yes"
+                    name="sellers-json"
+                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300"
+                    checked={formData.hasSellersJson}
+                    onChange={() => handleInputChange('hasSellersJson', 'true')}
+                  />
+                  <label htmlFor="sellers-json-yes" className="ml-2 text-sm text-gray-600">Yes</label>
+                </div>
+                <div className="flex items-center">
+                  <input
+                    type="radio"
+                    id="sellers-json-no"
+                    name="sellers-json"
+                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300"
+                    checked={!formData.hasSellersJson}
+                    onChange={() => handleInputChange('hasSellersJson', 'false')}
+                  />
+                  <label htmlFor="sellers-json-no" className="ml-2 text-sm text-gray-600">No</label>
+                </div>
+              </div>
+              
+              {formData.hasSellersJson && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Please provide the URL for your JSON file:
+                  </label>
+                  <input
+                    type="text"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                    value={formData.sellersJsonUrl}
+                    onChange={(e) => handleInputChange('sellersJsonUrl', e.target.value)}
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* Original 1.a. Environments */}
+            <div className="space-y-4">
+              <label className="block text-sm font-medium text-gray-700">
+                Please select all Environments in which you operate:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {['Mobile In-App', 'Desktop In-App', 'CTV/OTT', 'WEB', 'OOH'].map((env) => (
@@ -780,162 +902,89 @@ const App: React.FC = () => {
 
             <h2 className="text-xl font-bold mt-8">Section 2: Seller Information</h2>
 
-            {/* 2.a. Business Information */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  2.a. Business Name
-                </label>
-                <input
-                  type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                  value={formData.businessName}
-                  onChange={(e) => handleInputChange('businessName', e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Business Domain
-                </label>
-                <input
-                  type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                  value={formData.businessDomain}
-                  onChange={(e) => handleInputChange('businessDomain', e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* 2.b. Sellers.json */}
+            {/* 2.a. Intermediary Information */}
             <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">
-                2.b. Do you host a sellers.json file?
-              </label>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center">
-                  <input
-                    type="radio"
-                    id="sellers-json-yes"
-                    name="sellers-json"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300"
-                    checked={formData.hasSellersJson}
-                    onChange={() => handleInputChange('hasSellersJson', 'true')}
-                  />
-                  <label htmlFor="sellers-json-yes" className="ml-2 text-sm text-gray-600">Yes</label>
-                </div>
-                <div className="flex items-center">
-                  <input
-                    type="radio"
-                    id="sellers-json-no"
-                    name="sellers-json"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300"
-                    checked={!formData.hasSellersJson}
-                    onChange={() => handleInputChange('hasSellersJson', 'false')}
-                  />
-                  <label htmlFor="sellers-json-no" className="ml-2 text-sm text-gray-600">No</label>
-                </div>
-              </div>
+              <h3 className="font-medium">2.a. For Entities Acting as An Intermediary:</h3>
               
-              {formData.hasSellersJson && (
+              <div className="space-y-4">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                    checked={formData.intermediaryInfo.handlesPayments}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      intermediaryInfo: {
+                        ...prev.intermediaryInfo,
+                        handlesPayments: e.target.checked
+                      }
+                    }))}
+                  />
+                  <label className="ml-2 text-sm text-gray-600">
+                    Do you handle payment to the publishers you work with?
+                  </label>
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                    checked={formData.intermediaryInfo.supportsSupplyChain}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      intermediaryInfo: {
+                        ...prev.intermediaryInfo,
+                        supportsSupplyChain: e.target.checked
+                      }
+                    }))}
+                  />
+                  <label className="ml-2 text-sm text-gray-600">
+                    Do you support the SupplyChain Object (schain) in the bid request?
+                  </label>
+                </div>
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Please provide the URL for your JSON file:
+                    Please provide a rough estimate of the proportion of your inventory accessed directly from the Publisher vs indirectly through other intermediaries:
                   </label>
-                  <input
-                    type="text"
+                  <select
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                    value={formData.sellersJsonUrl}
-                    onChange={(e) => handleInputChange('sellersJsonUrl', e.target.value)}
-                  />
+                    value={formData.intermediaryInfo.inventoryProportion}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      intermediaryInfo: {
+                        ...prev.intermediaryInfo,
+                        inventoryProportion: e.target.value
+                      }
+                    }))}
+                  >
+                    <option value="">Select proportion</option>
+                    <option value="0-25">0-25% Direct / 75-100% Indirect</option>
+                    <option value="26-50">26-50% Direct / 50-74% Indirect</option>
+                    <option value="51-75">51-75% Direct / 25-49% Indirect</option>
+                    <option value="76-100">76-100% Direct / 0-24% Indirect</option>
+                  </select>
                 </div>
-              )}
-            </div>
 
-            {/* 2.c. Intermediary Information */}
-            {(formData.operationType === 'Intermediary' || formData.operationType === 'Both') && (
-              <div className="space-y-4">
-                <h3 className="font-medium">2.c. For Entities Acting as An Intermediary:</h3>
-                
-                <div className="space-y-4">
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
-                      checked={formData.intermediaryInfo.handlesPayments}
-                      onChange={(e) => setFormData(prev => ({
-                        ...prev,
-                        intermediaryInfo: {
-                          ...prev.intermediaryInfo,
-                          handlesPayments: e.target.checked
-                        }
-                      }))}
-                    />
-                    <label className="ml-2 text-sm text-gray-600">
-                      Do you handle payment to the publishers you work with?
-                    </label>
-                  </div>
-
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
-                      checked={formData.intermediaryInfo.supportsSupplyChain}
-                      onChange={(e) => setFormData(prev => ({
-                        ...prev,
-                        intermediaryInfo: {
-                          ...prev.intermediaryInfo,
-                          supportsSupplyChain: e.target.checked
-                        }
-                      }))}
-                    />
-                    <label className="ml-2 text-sm text-gray-600">
-                      Do you support the SupplyChain Object (schain) in the bid request?
-                    </label>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Please provide a rough estimate of the proportion of your inventory accessed directly from the Publisher vs indirectly through other intermediaries:
-                    </label>
-                    <select
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                      value={formData.intermediaryInfo.inventoryProportion}
-                      onChange={(e) => setFormData(prev => ({
-                        ...prev,
-                        intermediaryInfo: {
-                          ...prev.intermediaryInfo,
-                          inventoryProportion: e.target.value
-                        }
-                      }))}
-                    >
-                      <option value="">Select proportion</option>
-                      <option value="0-25">0-25% Direct / 75-100% Indirect</option>
-                      <option value="26-50">26-50% Direct / 50-74% Indirect</option>
-                      <option value="51-75">51-75% Direct / 25-49% Indirect</option>
-                      <option value="76-100">76-100% Direct / 0-24% Indirect</option>
-                    </select>
-                  </div>
-
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
-                      checked={formData.intermediaryInfo.canSegmentInventory}
-                      onChange={(e) => setFormData(prev => ({
-                        ...prev,
-                        intermediaryInfo: {
-                          ...prev.intermediaryInfo,
-                          canSegmentInventory: e.target.checked
-                        }
-                      }))}
-                    />
-                    <label className="ml-2 text-sm text-gray-600">
-                      Do you have the capability to segment out and target toward your directly accessed vs indirectly accessed supply?
-                    </label>
-                  </div>
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                    checked={formData.intermediaryInfo.canSegmentInventory}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      intermediaryInfo: {
+                        ...prev.intermediaryInfo,
+                        canSegmentInventory: e.target.checked
+                      }
+                    }))}
+                  />
+                  <label className="ml-2 text-sm text-gray-600">
+                    Do you have the capability to segment out and target toward your directly accessed vs indirectly accessed supply?
+                  </label>
                 </div>
               </div>
-            )}
+            </div>
 
             {/* 2.d. APP/CTV Platform Questions */}
             <div className="space-y-4">
@@ -2230,10 +2279,13 @@ const App: React.FC = () => {
           <div className="pb-3">
             <div className="flex justify-between mb-1">
               <span className="text-sm text-gray-500">Progress</span>
-              <span className="text-sm text-gray-500">8%</span>
+              <span className="text-sm text-gray-500">{progress}%</span>
             </div>
             <div className="w-full bg-gray-100 rounded-full h-1.5">
-              <div className="bg-yellow-300 h-1.5 rounded-full" style={{ width: '8%' }}></div>
+              <div 
+                className="bg-yellow-300 h-1.5 rounded-full transition-all duration-300" 
+                style={{ width: `${progress}%` }}
+              ></div>
             </div>
           </div>
 
