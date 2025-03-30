@@ -1151,13 +1151,14 @@ const App: React.FC = () => {
         );
       case 'web':
         return (
-          <div className="space-y-8">
+          <div className="space-y-6">
             <h2 className="text-xl font-bold">WEB Technical Info</h2>
-
+            
             {/* Integration Methods */}
-          <div className="space-y-4">
+            <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 Please Select All Available Integration Methods:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1183,9 +1184,10 @@ const App: React.FC = () => {
             </div>
 
             {/* Preferred Integration */}
-            <div className="space-y-2">
+            <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                3.b. Please select your preferred Integration Method
+                Please Select Your Preferred Integration Method:
+                <RequiredIndicator />
               </label>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1207,88 +1209,11 @@ const App: React.FC = () => {
               </select>
             </div>
 
-            {/* Video Player */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">
-                3.c. Which Video Player are you using?
-              </label>
-              <textarea
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                rows={4}
-                placeholder="List out all the players currently in use with relevant details"
-                value={formData.webTechnical.videoPlayer}
-                onChange={(e) => handleWebTechnicalChange('videoPlayer', e.target.value)}
-              />
-            </div>
-
-            {/* Pricing Strategy Section */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium">Pricing Strategy</h3>
-              
-              {/* Pricing Strategy */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  3.d. Are you currently implementing any Pricing Strategy?
-                </label>
-                <select
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                  value={formData.webTechnical.pricingStrategy.implementing ? 'yes' : 'no'}
-                  onChange={(e) => handlePricingStrategyChange(e.target.value === 'yes')}
-                >
-                  <option value="no">No</option>
-                  <option value="yes">Yes</option>
-                </select>
-              </div>
-
-              {formData.webTechnical.pricingStrategy.implementing && (
-                <div className="space-y-4 pl-4 border-l-2 border-yellow-200">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      Which vendor are you currently using OR can you elaborate on your strategy?
-                    </label>
-                    <textarea
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                      rows={3}
-                      value={formData.webTechnical.pricingStrategy.vendor}
-                      onChange={(e) => handlePricingStrategyDetailChange('vendor', e.target.value)}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700">
-                      On which integration are you currently using Floors?
-                    </label>
-                    <input
-                      type="text"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
-                      value={formData.webTechnical.pricingStrategy.integrationUsing}
-                      onChange={(e) => handlePricingStrategyDetailChange('integrationUsing', e.target.value)}
-                    />
-                  </div>
-
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
-                      checked={formData.webTechnical.pricingStrategy.sovrnOptimization}
-                      onChange={(e) => handlePricingStrategyDetailChange('sovrnOptimization', e.target.checked)}
-                    />
-                    <label className="ml-2 text-sm text-gray-600">
-                      Are you comfortable with Sovrn optimising your traffic with Floors?
-                    </label>
-                  </div>
-                </div>
-              )}
-
-              <div className="bg-gray-50 p-4 rounded-md text-sm text-gray-600">
-                Please note that Sovrn's Dynamic Floors will always honour, as a hard floor, the floor passed in the bid stream
-              </div>
-            </div>
-
-            {/* Total Request Volume */}
+            {/* Request Volume */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                3.e. Total Request Volume - Please specify if daily or monthly:
+                Please Provide Your Monthly Request Volume:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -1330,13 +1255,12 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Traffic Percentage by Region */}
-            <div className="space-y-6">
+            {/* Traffic Distribution */}
+            <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                3.f. Percentage of available traffic in the following regions:
+                Please Provide Your Traffic Distribution:
+                <RequiredIndicator />
               </label>
-              
-              {/* Display Traffic */}
               <div className="space-y-4">
                 <h4 className="font-medium">Display</h4>
                 <div className="grid grid-cols-2 gap-4">
@@ -1368,10 +1292,7 @@ const App: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Video Traffic */}
-              <div className="space-y-4">
                 <h4 className="font-medium">Video</h4>
                 <div className="grid grid-cols-2 gap-4">
                   {['northAmerica', 'emea', 'apac', 'latam'].map((region) => (
@@ -1408,7 +1329,8 @@ const App: React.FC = () => {
             {/* Data Centers */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                3.g. Please outline where your Data Centres are located:
+                Please Select All Data Centers You Are Connected To:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-3 gap-4">
                 {['US', 'EU', 'APAC'].map((location) => (
@@ -1773,13 +1695,14 @@ const App: React.FC = () => {
         );
       case 'ctvapp':
         return (
-          <div className="space-y-8">
+          <div className="space-y-6">
             <h2 className="text-xl font-bold">CTV/APP Technical Info</h2>
-
+            
             {/* Integration Methods */}
-          <div className="space-y-4">
+            <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 Please Select All Available Integration Methods:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1805,9 +1728,10 @@ const App: React.FC = () => {
             </div>
 
             {/* Preferred Integration */}
-            <div className="space-y-2">
+            <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                5.b. Please select your preferred Integration Method
+                Please Select Your Preferred Integration Method:
+                <RequiredIndicator />
               </label>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -1824,7 +1748,8 @@ const App: React.FC = () => {
             {/* Request Volume */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                5.c. Total Request Volume (Please specify if daily or monthly):
+                Please Provide Your Monthly Request Volume:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-1 gap-4">
                 <div>
@@ -1848,13 +1773,12 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Traffic Percentage */}
-            <div className="space-y-6">
+            {/* Traffic Distribution */}
+            <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                5.d. Percentage of available traffic in the following regions:
+                Please Provide Your Traffic Distribution:
+                <RequiredIndicator />
               </label>
-              
-              {/* In-APP Traffic */}
               <div className="space-y-4">
                 <h4 className="font-medium">In-APP</h4>
                 <div className="grid grid-cols-2 gap-4">
@@ -1874,10 +1798,7 @@ const App: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* CTV Traffic */}
-              <div className="space-y-4">
                 <h4 className="font-medium">CTV</h4>
                 <div className="grid grid-cols-2 gap-4">
                   {['northAmerica', 'emea', 'apac', 'latam'].map((region) => (
@@ -1902,7 +1823,8 @@ const App: React.FC = () => {
             {/* Data Centers */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                5.e. Please outline where your Data Centres are located:
+                Please Select All Data Centers You Are Connected To:
+                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-3 gap-4">
                 {['US', 'EU', 'APAC'].map((location) => (
