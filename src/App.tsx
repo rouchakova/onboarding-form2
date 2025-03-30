@@ -64,6 +64,9 @@ interface FormData {
     dataCenters: string[];
     pmpData: string;
     sensitiveCategories: string[];
+    adServerPlatforms: string[];
+    headerBiddingType: string;
+    timeoutSettings: string;
   };
   
   // Section 4: oRTB Technical
@@ -164,6 +167,9 @@ interface FormData {
         revenueCapsDetails: string;
       };
     };
+    adServerPlatforms: string[];
+    sdkVersions: string;
+    appFramework: string;
   };
 }
 
@@ -225,6 +231,9 @@ const calculateProgress = (formData: FormData, webRequired: boolean, ctvAppRequi
     formData.webTechnical.requestVolume.display !== '' || formData.webTechnical.requestVolume.video !== '',
     Object.values(formData.webTechnical.trafficPercentage.display).some(v => v !== ''),
     formData.webTechnical.dataCenters.length > 0,
+    formData.webTechnical.adServerPlatforms.length > 0,
+    formData.webTechnical.headerBiddingType !== '',
+    formData.webTechnical.timeoutSettings !== ''
   ] : [];
 
   // CTV/APP Technical section required fields (only if CTV/APP is selected)
@@ -234,6 +243,8 @@ const calculateProgress = (formData: FormData, webRequired: boolean, ctvAppRequi
     formData.ctvAppTechnical.requestVolume.ctv !== '' || formData.ctvAppTechnical.requestVolume.inApp !== '',
     Object.values(formData.ctvAppTechnical.trafficPercentage.inApp).some(v => v !== ''),
     formData.ctvAppTechnical.dataCenters.length > 0,
+    formData.ctvAppTechnical.adServerPlatforms.length > 0,
+    formData.ctvAppTechnical.sdkVersions !== '' && formData.ctvAppTechnical.appFramework !== '',
   ] : [];
 
   // Count total and filled fields
@@ -262,6 +273,23 @@ const isIntermediarySelected = (formData: FormData): boolean => {
 const isAppRelated = (formData: FormData): boolean => {
   return formData.environments.includes('Mobile In-App') ||
          formData.environments.includes('Desktop In-App') ||
+         formData.formats.includes('Interstitial - APP') ||
+         formData.formats.includes('Native - APP');
+};
+
+// Update or add these helper functions
+const isWebRelated = (formData: FormData): boolean => {
+  return formData.environments.includes('WEB') ||
+         formData.formats.includes('Display') ||
+         formData.formats.includes('Video') ||
+         formData.formats.includes('Interstitial - WEB') ||
+         formData.formats.includes('Native - WEB');
+};
+
+const isCtvAppRelated = (formData: FormData): boolean => {
+  return formData.environments.includes('Mobile In-App') ||
+         formData.environments.includes('Desktop In-App') ||
+         formData.environments.includes('CTV/OTT') ||
          formData.formats.includes('Interstitial - APP') ||
          formData.formats.includes('Native - APP');
 };
@@ -327,7 +355,10 @@ const App: React.FC = () => {
       },
       dataCenters: [],
       pmpData: '',
-      sensitiveCategories: []
+      sensitiveCategories: [],
+      adServerPlatforms: [],
+      headerBiddingType: '',
+      timeoutSettings: ''
     },
     
     // Section 4: oRTB Technical
@@ -428,6 +459,9 @@ const App: React.FC = () => {
           revenueCapsDetails: '',
         },
       },
+      adServerPlatforms: [],
+      sdkVersions: '',
+      appFramework: ''
     }
   });
 
@@ -454,13 +488,15 @@ const App: React.FC = () => {
         setActiveSection('generic');
         return;
       }
-      if (hasWebOptions(formData) && !validateWebSection()) {
-        alert('Please complete all required fields in the Web Technical section');
+
+      if (isWebRelated(formData) && !validateWebSection()) {
+        alert('Please complete all required fields in the WEB Technical Info section');
         setActiveSection('web');
         return;
       }
-      if (hasCtvAppOptions(formData) && !validateCtvAppSection()) {
-        alert('Please complete all required fields in the CTV/APP Technical section');
+
+      if (isCtvAppRelated(formData) && !validateCtvAppSection()) {
+        alert('Please complete all required fields in the CTV/APP Technical Info section');
         setActiveSection('ctvapp');
         return;
       }
@@ -1179,6 +1215,7 @@ const App: React.FC = () => {
           <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 3.a. Please Select All Available Integration Methods:
+                {isWebRelated(formData) && <RequiredIndicator />}
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1801,6 +1838,7 @@ const App: React.FC = () => {
           <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 5.a. Please Select All Available Integration Methods:
+                {isCtvAppRelated(formData) && <RequiredIndicator />}
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -2374,21 +2412,37 @@ const App: React.FC = () => {
     }
   };
 
-  // Add validation functions
+  // Update the validation functions
   const validateWebSection = (): boolean => {
-    return formData.webTechnical.integrationMethods.length > 0 &&
-           formData.webTechnical.preferredIntegration !== '' &&
-           (formData.webTechnical.requestVolume.display !== '' || formData.webTechnical.requestVolume.video !== '') &&
-           Object.values(formData.webTechnical.trafficPercentage.display).some(v => v !== '') &&
-           formData.webTechnical.dataCenters.length > 0;
+    if (!isWebRelated(formData)) return true; // Skip validation if Web not selected
+
+    return (
+      formData.webTechnical.integrationMethods.length > 0 &&
+      formData.webTechnical.preferredIntegration !== '' &&
+      formData.webTechnical.requestVolume.display !== '' &&
+      formData.webTechnical.requestVolume.video !== '' &&
+      Object.values(formData.webTechnical.trafficPercentage.display).some(v => v !== '') &&
+      formData.webTechnical.dataCenters.length > 0 &&
+      formData.webTechnical.adServerPlatforms.length > 0 &&
+      formData.webTechnical.headerBiddingType !== '' &&
+      formData.webTechnical.timeoutSettings !== ''
+    );
   };
 
   const validateCtvAppSection = (): boolean => {
-    return formData.ctvAppTechnical.integrationMethods.length > 0 &&
-           formData.ctvAppTechnical.preferredIntegration !== '' &&
-           (formData.ctvAppTechnical.requestVolume.ctv !== '' || formData.ctvAppTechnical.requestVolume.inApp !== '') &&
-           Object.values(formData.ctvAppTechnical.trafficPercentage.inApp).some(v => v !== '') &&
-           formData.ctvAppTechnical.dataCenters.length > 0;
+    if (!isCtvAppRelated(formData)) return true; // Skip validation if CTV/APP not selected
+
+    return (
+      formData.ctvAppTechnical.integrationMethods.length > 0 &&
+      formData.ctvAppTechnical.preferredIntegration !== '' &&
+      formData.ctvAppTechnical.requestVolume.ctv !== '' &&
+      formData.ctvAppTechnical.requestVolume.inApp !== '' &&
+      Object.values(formData.ctvAppTechnical.trafficPercentage.inApp).some(v => v !== '') &&
+      formData.ctvAppTechnical.dataCenters.length > 0 &&
+      formData.ctvAppTechnical.adServerPlatforms.length > 0 &&
+      formData.ctvAppTechnical.sdkVersions !== '' &&
+      formData.ctvAppTechnical.appFramework !== ''
+    );
   };
 
   // Update the form fields to include required indicators and validation
@@ -2467,7 +2521,7 @@ const App: React.FC = () => {
               onClick={() => setActiveSection('web')}
             >
               WEB - Technical Info
-              {hasWebOptions(formData) && <RequiredIndicator />}
+              {isWebRelated(formData) && <RequiredIndicator />}
             </button>
             <button 
               className={`flex-1 rounded-md py-2.5 px-3 text-sm font-medium transition-colors ${
@@ -2477,8 +2531,8 @@ const App: React.FC = () => {
               }`}
               onClick={() => setActiveSection('ctvapp')}
             >
-              CTVAPP - Technical Info
-              {hasCtvAppOptions(formData) && <RequiredIndicator />}
+              CTV/APP - Technical Info
+              {isCtvAppRelated(formData) && <RequiredIndicator />}
             </button>
           </div>
         </div>
