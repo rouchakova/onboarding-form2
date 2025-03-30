@@ -732,8 +732,11 @@ const App: React.FC = () => {
                     id="sellers-json-yes"
                     name="sellers-json"
                     className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300"
-                    checked={formData.hasSellersJson}
-                    onChange={() => handleInputChange('hasSellersJson', 'true')}
+                    checked={formData.hasSellersJson === true}
+                    onChange={() => setFormData(prev => ({
+                      ...prev,
+                      hasSellersJson: true
+                    }))}
                     required
                   />
                   <label htmlFor="sellers-json-yes" className="ml-2 text-sm text-gray-600">Yes</label>
@@ -744,8 +747,12 @@ const App: React.FC = () => {
                     id="sellers-json-no"
                     name="sellers-json"
                     className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300"
-                    checked={!formData.hasSellersJson}
-                    onChange={() => handleInputChange('hasSellersJson', 'false')}
+                    checked={formData.hasSellersJson === false}
+                    onChange={() => setFormData(prev => ({
+                      ...prev,
+                      hasSellersJson: false,
+                      sellersJsonUrl: '' // Clear the URL when switching to No
+                    }))}
                   />
                   <label htmlFor="sellers-json-no" className="ml-2 text-sm text-gray-600">No</label>
                 </div>
@@ -761,7 +768,10 @@ const App: React.FC = () => {
                     type="text"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
                     value={formData.sellersJsonUrl}
-                    onChange={(e) => handleInputChange('sellersJsonUrl', e.target.value)}
+                    onChange={(e) => setFormData(prev => ({
+                      ...prev,
+                      sellersJsonUrl: e.target.value
+                    }))}
                     required
                   />
                 </div>
@@ -978,7 +988,7 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <h2 className="text-xl font-bold mt-8">Section 2: Seller Information</h2>
+            <h2 className="text-xl font-bold mt-8">Seller Information</h2>
 
             {/* Intermediary Information */}
             <div className="space-y-4">
@@ -1142,12 +1152,12 @@ const App: React.FC = () => {
       case 'web':
         return (
           <div className="space-y-8">
-            <h2 className="text-xl font-bold">Section 3: WEB Technical Info</h2>
+            <h2 className="text-xl font-bold">WEB Technical Info</h2>
 
             {/* Integration Methods */}
           <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                3.a. Please Select All Available Integration Methods:
+                Please Select All Available Integration Methods:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1454,7 +1464,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Section 4: oRTB Technical Questions */}
-            <h2 className="text-xl font-bold mt-8">Section 4: oRTB Technical Questions</h2>
+            <h2 className="text-xl font-bold mt-8">oRTB Technical Questions</h2>
 
             {/* Impression Tracking Methods */}
             <div className="space-y-4">
@@ -1509,7 +1519,7 @@ const App: React.FC = () => {
 
             {/* Ad-call Flow & Creative Rendering */}
             <div className="space-y-4">
-              <h3 className="text-md font-medium">4.c. Ad-call Flow & Creative Rendering</h3>
+              <h3 className="text-md font-medium">Ad-call Flow & Creative Rendering</h3>
               
               <div className="space-y-4">
                 {[
@@ -1764,12 +1774,12 @@ const App: React.FC = () => {
       case 'ctvapp':
         return (
           <div className="space-y-8">
-            <h2 className="text-xl font-bold">Section 5: CTV/APP Technical Info</h2>
+            <h2 className="text-xl font-bold">CTV/APP Technical Info</h2>
 
             {/* Integration Methods */}
           <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                5.a. Please Select All Available Integration Methods:
+                Please Select All Available Integration Methods:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1949,7 +1959,7 @@ const App: React.FC = () => {
             </div>
 
             {/* Section 6: Technical Settings */}
-            <h2 className="text-xl font-bold mt-8">Section 6: Technical Settings</h2>
+            <h2 className="text-xl font-bold mt-8">Technical Settings</h2>
 
             {/* Impression Tracking Methods */}
             <div className="space-y-4">
