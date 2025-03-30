@@ -722,7 +722,7 @@ const App: React.FC = () => {
             {/* Sellers.json */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Do you host a sellers.json file?
+                1.a. Do you host a sellers.json file?
                 <RequiredIndicator />
               </label>
               <div className="flex items-center space-x-4">
@@ -781,7 +781,7 @@ const App: React.FC = () => {
             {/* Environments */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please select all Environments in which you operate
+                1.b. Please select all Environments in which you operate
                 <RequiredIndicator />
               </label>
               <div className="space-y-2">
@@ -805,7 +805,7 @@ const App: React.FC = () => {
             {/* Formats */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please select all Formats you support
+                1.c. Please select all Formats you support
                 <RequiredIndicator />
               </label>
               <div className="space-y-2">
@@ -836,7 +836,7 @@ const App: React.FC = () => {
             {/* Operation Type */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please select your Operation Type
+                1.d. Please select your Operation Type
                 <RequiredIndicator />
               </label>
               <select
@@ -884,7 +884,8 @@ const App: React.FC = () => {
             {/* Seller Categories */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                1.d. Which category of seller best suits your offering?
+                1.e. Which category of seller best suits your offering?
+                <RequiredIndicator />
               </label>
               
               <div className="space-y-4">
@@ -934,7 +935,7 @@ const App: React.FC = () => {
             {/* COPPA Regulation */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                1.e. What portion of your inventory is child directed/subject to COPPA regulation?
+                1.f. What portion of your inventory is child directed/subject to COPPA regulation?
               </label>
               <select
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
@@ -951,7 +952,7 @@ const App: React.FC = () => {
             {/* App Stores */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                1.f. (APP Specific Question) On what AppStores can your applications be found?
+                1.g. (APP Specific Question) On what AppStores can your applications be found?
               </label>
               <div className="text-sm text-gray-500 mb-2">
                 Note: Sovrn will not monetize App Bundles made accessible for download through third-party APK platforms unaffiliated with Google.
@@ -1076,7 +1077,7 @@ const App: React.FC = () => {
 
             {/* APP/CTV Platform Questions */}
             <div className="space-y-4">
-              <h3 className="font-medium">2.d. For MVPD/FAST Platforms and Select App Developers:</h3>
+              <h3 className="font-medium">2.b. For MVPD/FAST Platforms and Select App Developers:</h3>
               
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -1119,7 +1120,7 @@ const App: React.FC = () => {
 
             {/* Supplemental Content Solutions */}
             <div className="space-y-4">
-              <h3 className="font-medium">2.e. For Supplemental Content Solutions or Syndication Partners:</h3>
+              <h3 className="font-medium">2.c. For Supplemental Content Solutions or Syndication Partners:</h3>
               
               <div>
                 <label className="block text-sm font-medium text-gray-700">
@@ -1157,7 +1158,7 @@ const App: React.FC = () => {
             {/* Integration Methods */}
           <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Select All Available Integration Methods:
+                3.a. Please Select All Available Integration Methods:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1779,7 +1780,7 @@ const App: React.FC = () => {
             {/* Integration Methods */}
           <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Select All Available Integration Methods:
+                5.a. Please Select All Available Integration Methods:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
