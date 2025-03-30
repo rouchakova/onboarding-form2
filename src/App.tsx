@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaQuestionCircle } from 'react-icons/fa';
+import { supabase } from './lib/supabaseClient';
 
 interface FormData {
   environments: string[];
@@ -532,6 +533,29 @@ const App: React.FC = () => {
       }
     }));
   };
+
+  // Add this near the top of your component
+  useEffect(() => {
+    const testConnection = async () => {
+      try {
+        console.log('Testing Supabase connection...');
+        const { data, error } = await supabase
+          .from('forms')
+          .select('*')
+          .limit(1);
+
+        if (error) {
+          console.error('Supabase Error:', error.message);
+        } else {
+          console.log('Supabase Connected! Data:', data);
+        }
+      } catch (err) {
+        console.error('Connection Error:', err);
+      }
+    };
+
+    testConnection();
+  }, []);
 
   const renderFormSection = () => {
     switch (activeSection) {
