@@ -781,7 +781,7 @@ const App: React.FC = () => {
             {/* Environments */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please select all Environments in which you operate
+                1.1 Please select all Environments in which you operate:
                 <RequiredIndicator />
               </label>
               <div className="space-y-2">
@@ -805,7 +805,7 @@ const App: React.FC = () => {
             {/* Formats */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please select all Formats you support
+                1.2 Please select all Formats you support:
                 <RequiredIndicator />
               </label>
               <div className="space-y-2">
@@ -840,7 +840,7 @@ const App: React.FC = () => {
                 <RequiredIndicator />
               </label>
               <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
                 value={formData.operationType}
                 onChange={(e) => handleInputChange('operationType', e.target.value)}
                 required
@@ -1157,8 +1157,7 @@ const App: React.FC = () => {
             {/* Integration Methods */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Select All Available Integration Methods:
-                <RequiredIndicator />
+                2.1 Please Select All Available Integration Methods:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1186,11 +1185,10 @@ const App: React.FC = () => {
             {/* Preferred Integration */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Select Your Preferred Integration Method:
-                <RequiredIndicator />
+                2.2 Please select your preferred Integration Method:
               </label>
               <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
                 value={formData.webTechnical.preferredIntegration}
                 onChange={(e) => handleWebTechnicalChange('preferredIntegration', e.target.value)}
               >
@@ -1213,7 +1211,6 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 Please Provide Your Monthly Request Volume:
-                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -1259,7 +1256,6 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 Please Provide Your Traffic Distribution:
-                <RequiredIndicator />
               </label>
               <div className="space-y-4">
                 <h4 className="font-medium">Display</h4>
@@ -1330,7 +1326,6 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 Please Select All Data Centers You Are Connected To:
-                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-3 gap-4">
                 {['US', 'EU', 'APAC'].map((location) => (
@@ -1701,8 +1696,7 @@ const App: React.FC = () => {
             {/* Integration Methods */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Select All Available Integration Methods:
-                <RequiredIndicator />
+                3.1 Please Select All Available Integration Methods:
               </label>
               <div className="grid grid-cols-2 gap-4">
                 {[
@@ -1730,11 +1724,10 @@ const App: React.FC = () => {
             {/* Preferred Integration */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Please Select Your Preferred Integration Method:
-                <RequiredIndicator />
+                3.2 Please select your preferred Integration Method:
               </label>
               <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
                 value={formData.ctvAppTechnical.preferredIntegration}
                 onChange={(e) => handleCtvAppChange('preferredIntegration', e.target.value)}
               >
@@ -1749,7 +1742,6 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 Please Provide Your Monthly Request Volume:
-                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-1 gap-4">
                 <div>
@@ -1777,7 +1769,6 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 Please Provide Your Traffic Distribution:
-                <RequiredIndicator />
               </label>
               <div className="space-y-4">
                 <h4 className="font-medium">In-APP</h4>
@@ -1824,7 +1815,6 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 Please Select All Data Centers You Are Connected To:
-                <RequiredIndicator />
               </label>
               <div className="grid grid-cols-3 gap-4">
                 {['US', 'EU', 'APAC'].map((location) => (
@@ -2277,6 +2267,12 @@ const App: React.FC = () => {
 
   // Add validation functions
   const validateWebSection = (): boolean => {
+    const webRequired = hasWebOptions(formData);
+    
+    if (!webRequired) {
+      return true; // Skip validation if web options aren't selected
+    }
+
     return formData.webTechnical.integrationMethods.length > 0 &&
            formData.webTechnical.preferredIntegration !== '' &&
            (formData.webTechnical.requestVolume.display !== '' || formData.webTechnical.requestVolume.video !== '') &&
@@ -2285,6 +2281,12 @@ const App: React.FC = () => {
   };
 
   const validateCtvAppSection = (): boolean => {
+    const ctvAppRequired = hasCtvAppOptions(formData);
+    
+    if (!ctvAppRequired) {
+      return true; // Skip validation if CTV/APP options aren't selected
+    }
+
     return formData.ctvAppTechnical.integrationMethods.length > 0 &&
            formData.ctvAppTechnical.preferredIntegration !== '' &&
            (formData.ctvAppTechnical.requestVolume.ctv !== '' || formData.ctvAppTechnical.requestVolume.inApp !== '') &&
