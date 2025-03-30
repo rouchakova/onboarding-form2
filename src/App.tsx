@@ -254,6 +254,18 @@ const RequiredIndicator = () => (
   <span className="text-red-500 ml-1" title="This field is required">*</span>
 );
 
+// First, add helper functions to check dependencies
+const isIntermediarySelected = (formData: FormData): boolean => {
+  return formData.sellerCategories.intermediary.length > 0;
+};
+
+const isAppRelated = (formData: FormData): boolean => {
+  return formData.environments.includes('Mobile In-App') ||
+         formData.environments.includes('Desktop In-App') ||
+         formData.formats.includes('Interstitial - APP') ||
+         formData.formats.includes('Native - APP');
+};
+
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<FormSection>('generic');
   const [formData, setFormData] = useState<FormData>({
@@ -436,17 +448,18 @@ const App: React.FC = () => {
 
   // Replace the existing saveFormData function with this one:
   const saveFormData = async (status: SubmissionStatus = 'draft') => {
-    const webRequired = hasWebOptions(formData);
-    const ctvAppRequired = hasCtvAppOptions(formData);
-
-    // Validate mandatory sections before submission
     if (status === 'submitted') {
-      if (webRequired && !validateWebSection()) {
+      if (!validateGenericSection()) {
+        alert('Please complete all required fields in the Generic section');
+        setActiveSection('generic');
+        return;
+      }
+      if (hasWebOptions(formData) && !validateWebSection()) {
         alert('Please complete all required fields in the Web Technical section');
         setActiveSection('web');
         return;
       }
-      if (ctvAppRequired && !validateCtvAppSection()) {
+      if (hasCtvAppOptions(formData) && !validateCtvAppSection()) {
         alert('Please complete all required fields in the CTV/APP Technical section');
         setActiveSection('ctvapp');
         return;
@@ -936,12 +949,15 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 1.f. What portion of your inventory is child directed/subject to COPPA regulation?
+                <RequiredIndicator />
               </label>
               <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-sm"
                 value={formData.childDirectedPortion}
                 onChange={(e) => handleInputChange('childDirectedPortion', e.target.value)}
+                required
               >
+                <option value="">Select an option</option>
                 <option value="none">None, our entire offering is considered General Audience</option>
                 <option value="less25">{'<25%'}</option>
                 <option value="25-50">25-50%</option>
@@ -953,6 +969,7 @@ const App: React.FC = () => {
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
                 1.g. (APP Specific Question) On what AppStores can your applications be found?
+                {isAppRelated(formData) && <RequiredIndicator />}
               </label>
               <div className="text-sm text-gray-500 mb-2">
                 Note: Sovrn will not monetize App Bundles made accessible for download through third-party APK platforms unaffiliated with Google.
@@ -993,7 +1010,10 @@ const App: React.FC = () => {
 
             {/* Intermediary Information */}
             <div className="space-y-4">
-              <h3 className="font-medium">2.a. For Entities Acting as An Intermediary:</h3>
+              <h3 className="font-medium">
+                2.a. For Entities Acting as An Intermediary:
+                {isIntermediarySelected(formData) && <RequiredIndicator />}
+              </h3>
               
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -2371,12 +2391,43 @@ const App: React.FC = () => {
            formData.ctvAppTechnical.dataCenters.length > 0;
   };
 
+  // Update the form fields to include required indicators and validation
+  // In the renderFormSection function, update these sections:
+
+  // COPPA Regulation
+  const validateGenericSection = (): boolean => {
+    const baseValidation = 
+      formData.environments.length > 0 &&
+      formData.formats.length > 0 &&
+      formData.operationType !== '' &&
+      formData.businessName !== '' &&
+      formData.businessDomain !== '' &&
+      formData.hasSellersJson !== undefined &&
+      (formData.hasSellersJson === false || (formData.hasSellersJson === true && formData.sellersJsonUrl !== '')) &&
+      formData.childDirectedPortion !== '' &&
+      formData.sellerCategories.ownedAndOperated.length > 0 || formData.sellerCategories.intermediary.length > 0;
+
+    // Additional validations based on dependencies
+    if (isAppRelated(formData)) {
+      if (formData.appStores.length === 0) return false;
+    }
+
+    if (isIntermediarySelected(formData)) {
+      if (!formData.intermediaryInfo.inventoryProportion) return false;
+    }
+
+    return baseValidation;
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      {/* Non-sticky title */}
-      <div className="max-w-4xl mx-auto px-4 pt-6 pb-8">
-        <h1 className="text-4xl font-bold text-gray-900 text-center">Sovrn Tech Form</h1>
-      </div>
+      <header className="bg-white shadow">
+        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold text-gray-900">
+            Sovrn Technical RFI
+          </h1>
+        </div>
+      </header>
 
       {/* Sticky Header */}
       <div className="sticky top-0 z-50 bg-white shadow-sm transition-all duration-300">
