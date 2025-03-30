@@ -747,7 +747,7 @@ const App: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                   value={formData.businessName}
                   onChange={(e) => handleInputChange('businessName', e.target.value)}
                   required
@@ -760,7 +760,7 @@ const App: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                   value={formData.businessDomain}
                   onChange={(e) => handleInputChange('businessDomain', e.target.value)}
                   required
@@ -780,7 +780,7 @@ const App: React.FC = () => {
                     type="radio"
                     id="sellers-json-yes"
                     name="sellers-json"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300"
+                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300"
                     checked={formData.hasSellersJson === true}
                     onChange={() => setFormData(prev => ({
                       ...prev,
@@ -795,7 +795,7 @@ const App: React.FC = () => {
                     type="radio"
                     id="sellers-json-no"
                     name="sellers-json"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300"
+                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300"
                     checked={formData.hasSellersJson === false}
                     onChange={() => setFormData(prev => ({
                       ...prev,
@@ -815,7 +815,7 @@ const App: React.FC = () => {
                   </label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                     value={formData.sellersJsonUrl}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -839,7 +839,7 @@ const App: React.FC = () => {
                     <input
                       type="checkbox"
                       id={`env-${env}`}
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.environments.includes(env)}
                       onChange={(e) => handleCheckboxChange('environments', env)}
                     />
@@ -870,7 +870,7 @@ const App: React.FC = () => {
                     <input
                       type="checkbox"
                       id={`format-${format}`}
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.formats.includes(format)}
                       onChange={(e) => handleCheckboxChange('formats', format)}
                     />
@@ -889,7 +889,7 @@ const App: React.FC = () => {
                 <RequiredIndicator />
               </label>
               <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                 value={formData.operationType}
                 onChange={(e) => handleInputChange('operationType', e.target.value)}
                 required
@@ -906,7 +906,7 @@ const App: React.FC = () => {
                     Please provide a rough estimate of the proportion of resold Inventory:
                   </label>
                   <select
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                     value={formData.resoldInventoryProportion}
                     onChange={(e) => handleInputChange('resoldInventoryProportion', e.target.value)}
                   >
@@ -949,7 +949,7 @@ const App: React.FC = () => {
                     <div key={category} className="flex items-center">
                       <input
                         type="checkbox"
-                        className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                        className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                         checked={formData.sellerCategories.ownedAndOperated.includes(category)}
                         onChange={() => handleSellerCategoryChange('ownedAndOperated', category)}
                       />
@@ -970,7 +970,7 @@ const App: React.FC = () => {
                   <div key={category} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                         checked={formData.sellerCategories.intermediary.includes(category)}
                         onChange={() => handleSellerCategoryChange('intermediary', category)}
                     />
@@ -988,7 +988,7 @@ const App: React.FC = () => {
                 <RequiredIndicator />
               </label>
               <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300 text-sm"
                 value={formData.childDirectedPortion}
                 onChange={(e) => handleInputChange('childDirectedPortion', e.target.value)}
                 required
@@ -1023,7 +1023,7 @@ const App: React.FC = () => {
                   <div key={store} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.appStores.includes(store)}
                       onChange={(e) => handleCheckboxChange('appStores', store)}
                     />
@@ -1035,7 +1035,7 @@ const App: React.FC = () => {
                 <label className="block text-sm font-medium text-gray-700">Other (Please list other providers):</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                   value={formData.otherAppStores}
                   onChange={(e) => handleInputChange('otherAppStores', e.target.value)}
                 />
@@ -1055,7 +1055,7 @@ const App: React.FC = () => {
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                     checked={formData.intermediaryInfo.handlesPayments}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -1073,7 +1073,7 @@ const App: React.FC = () => {
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                     checked={formData.intermediaryInfo.supportsSupplyChain}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -1093,7 +1093,7 @@ const App: React.FC = () => {
                     Please provide a rough estimate of the proportion of your inventory accessed directly from the Publisher vs indirectly through other intermediaries:
                 </label>
                   <select
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                     value={formData.intermediaryInfo.inventoryProportion}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -1114,7 +1114,7 @@ const App: React.FC = () => {
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                     checked={formData.intermediaryInfo.canSegmentInventory}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -1139,7 +1139,7 @@ const App: React.FC = () => {
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                     checked={formData.appCtvInfo.displaysThirdPartyContent}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -1157,7 +1157,7 @@ const App: React.FC = () => {
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                     checked={formData.appCtvInfo.hasContentConsent}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -1184,7 +1184,7 @@ const App: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                   placeholder="i.e. where and when the content displays in the third-party application, what the display looks like, etc."
                   value={formData.supplementalContentLink}
                   onChange={(e) => handleInputChange('supplementalContentLink', e.target.value)}
@@ -1198,7 +1198,7 @@ const App: React.FC = () => {
                 Anything else you'd like us to know about your offering?
               </label>
               <textarea
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                 rows={4}
                 value={formData.additionalInfo}
                 onChange={(e) => handleInputChange('additionalInfo', e.target.value)}
@@ -1230,7 +1230,7 @@ const App: React.FC = () => {
                   <div key={method} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.webTechnical.integrationMethods.includes(method)}
                       onChange={() => handleWebTechnicalCheckbox('integrationMethods', method)}
                     />
@@ -1246,7 +1246,7 @@ const App: React.FC = () => {
                 3.b. Please select your preferred Integration Method
               </label>
               <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                 value={formData.webTechnical.preferredIntegration}
                 onChange={(e) => handleWebTechnicalChange('preferredIntegration', e.target.value)}
               >
@@ -1271,7 +1271,7 @@ const App: React.FC = () => {
                 3.c. Which Video Player are you using?
               </label>
               <textarea
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                 rows={4}
                 placeholder="List out all the players currently in use with relevant details"
                 value={formData.webTechnical.videoPlayer}
@@ -1289,7 +1289,7 @@ const App: React.FC = () => {
                   3.d. Are you currently implementing any Pricing Strategy?
                 </label>
                 <select
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                   value={formData.webTechnical.pricingStrategy.implementing ? 'yes' : 'no'}
                   onChange={(e) => handlePricingStrategyChange(e.target.value === 'yes')}
                 >
@@ -1305,7 +1305,7 @@ const App: React.FC = () => {
                       Which vendor are you currently using OR can you elaborate on your strategy?
                     </label>
                     <textarea
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                       rows={3}
                       value={formData.webTechnical.pricingStrategy.vendor}
                       onChange={(e) => handlePricingStrategyDetailChange('vendor', e.target.value)}
@@ -1318,7 +1318,7 @@ const App: React.FC = () => {
                     </label>
                     <input
                       type="text"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                       value={formData.webTechnical.pricingStrategy.integrationUsing}
                       onChange={(e) => handlePricingStrategyDetailChange('integrationUsing', e.target.value)}
                     />
@@ -1327,7 +1327,7 @@ const App: React.FC = () => {
                   <div className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.webTechnical.pricingStrategy.sovrnOptimization}
                       onChange={(e) => handlePricingStrategyDetailChange('sovrnOptimization', e.target.checked)}
                     />
@@ -1353,7 +1353,7 @@ const App: React.FC = () => {
                   <label className="block text-sm text-gray-600">Display:</label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                     value={formData.webTechnical.requestVolume.display}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -1371,7 +1371,7 @@ const App: React.FC = () => {
                   <label className="block text-sm text-gray-600">Video:</label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                     value={formData.webTechnical.requestVolume.video}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -1407,7 +1407,7 @@ const App: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                         value={formData.webTechnical.trafficPercentage.display[region as Region]}
                         onChange={(e) => setFormData(prev => ({
                           ...prev,
@@ -1441,7 +1441,7 @@ const App: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                         value={formData.webTechnical.trafficPercentage.video[region as Region]}
                         onChange={(e) => setFormData(prev => ({
                           ...prev,
@@ -1473,7 +1473,7 @@ const App: React.FC = () => {
                   <div key={location} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.webTechnical.dataCenters.includes(location)}
                       onChange={() => handleWebTechnicalCheckbox('dataCenters', location)}
                     />
@@ -1489,7 +1489,7 @@ const App: React.FC = () => {
                 3.h. Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
               </label>
               <textarea
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                 rows={4}
                 value={formData.webTechnical.pmpData}
                 onChange={(e) => handleWebTechnicalChange('pmpData', e.target.value)}
@@ -1511,7 +1511,7 @@ const App: React.FC = () => {
                   <div key={category} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.webTechnical.sensitiveCategories.includes(category)}
                       onChange={() => handleWebTechnicalCheckbox('sensitiveCategories', category)}
                     />
@@ -1538,7 +1538,7 @@ const App: React.FC = () => {
                   <div key={method} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.ortbTechnical.impressionTracking.includes(method)}
                       onChange={() => setFormData(prev => ({
                         ...prev,
@@ -1562,7 +1562,7 @@ const App: React.FC = () => {
                 4.b. (Video Specific) - do you support impression tracking by the VAST impression event or nURL/bURL?
               </label>
               <textarea
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                 rows={3}
                 value={formData.ortbTechnical.videoImpressionTracking}
                 onChange={(e) => setFormData(prev => ({
@@ -1591,7 +1591,7 @@ const App: React.FC = () => {
                     <label className="block text-sm text-gray-700">{label}</label>
                     <input
                       type="text"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                       value={formData.ortbTechnical.adCallFlow[field]}
                       onChange={(e) => setFormData(prev => ({
                         ...prev,
@@ -1616,7 +1616,7 @@ const App: React.FC = () => {
               <div className="flex items-center">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                   checked={formData.ortbTechnical.adQuality.conductScanning}
                   onChange={(e) => setFormData(prev => ({
                     ...prev,
@@ -1643,7 +1643,7 @@ const App: React.FC = () => {
                       <label className="block text-sm text-gray-700">{label}</label>
                       <input
                         type="text"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                         value={formData.ortbTechnical.adQuality[field]}
                         onChange={(e) => setFormData(prev => ({
                           ...prev,
@@ -1669,7 +1669,7 @@ const App: React.FC = () => {
               <div className="flex items-center">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                   checked={formData.ortbTechnical.utcReporting}
                   onChange={(e) => setFormData(prev => ({
                     ...prev,
@@ -1701,7 +1701,7 @@ const App: React.FC = () => {
                     <label className="block text-sm text-gray-700">{label}</label>
                     <input
                       type="text"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                       value={formData.ortbTechnical.ortbRequirements[field as OrtbRequirementsTextFields]}
                       onChange={(e) => setFormData(prev => ({
                         ...prev,
@@ -1726,7 +1726,7 @@ const App: React.FC = () => {
                   <div key={field} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.ortbTechnical.ortbRequirements[field as OrtbRequirementsBooleanFields]}
                       onChange={(e) => setFormData(prev => ({
                         ...prev,
@@ -1761,7 +1761,7 @@ const App: React.FC = () => {
                   <div key={field} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.ortbTechnical.cookieMatching[field as CookieMatchingBooleanFields]}
                       onChange={(e) => setFormData(prev => ({
                         ...prev,
@@ -1788,7 +1788,7 @@ const App: React.FC = () => {
                     <label className="block text-sm text-gray-700">{label}</label>
                     <input
                       type="text"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                       value={formData.ortbTechnical.cookieMatching[field as CookieMatchingTextFields]}
                       onChange={(e) => setFormData(prev => ({
                         ...prev,
@@ -1809,7 +1809,7 @@ const App: React.FC = () => {
                   <div>
                     <label className="block text-sm text-gray-700">Which eids are you passing?</label>
                     <textarea
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                       rows={3}
                       value={formData.ortbTechnical.cookieMatching.eidsTypes.join('\n')}
                       onChange={(e) => setFormData(prev => ({
@@ -1853,7 +1853,7 @@ const App: React.FC = () => {
                   <div key={method} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.ctvAppTechnical.integrationMethods.includes(method)}
                       onChange={() => handleCtvAppCheckbox('integrationMethods', method)}
                     />
@@ -1869,7 +1869,7 @@ const App: React.FC = () => {
                 5.b. Please select your preferred Integration Method
               </label>
               <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                 value={formData.ctvAppTechnical.preferredIntegration}
                 onChange={(e) => handleCtvAppChange('preferredIntegration', e.target.value)}
               >
@@ -1890,7 +1890,7 @@ const App: React.FC = () => {
                   <label className="block text-sm text-gray-600">Total CTV Request Volume (if applicable):</label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                     value={formData.ctvAppTechnical.requestVolume.ctv}
                     onChange={(e) => handleCtvAppVolumeChange('ctv', e.target.value)}
                   />
@@ -1899,7 +1899,7 @@ const App: React.FC = () => {
                   <label className="block text-sm text-gray-600">Total In-App Request Volume (if applicable):</label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                     value={formData.ctvAppTechnical.requestVolume.inApp}
                     onChange={(e) => handleCtvAppVolumeChange('inApp', e.target.value)}
                   />
@@ -1926,7 +1926,7 @@ const App: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                         value={formData.ctvAppTechnical.trafficPercentage.inApp[region as Region]}
                         onChange={(e) => handleCtvAppTrafficChange('inApp', region as Region, e.target.value)}
                       />
@@ -1948,7 +1948,7 @@ const App: React.FC = () => {
                       </label>
                       <input
                         type="text"
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                         value={formData.ctvAppTechnical.trafficPercentage.ctv[region as Region]}
                         onChange={(e) => handleCtvAppTrafficChange('ctv', region as Region, e.target.value)}
                       />
@@ -1968,7 +1968,7 @@ const App: React.FC = () => {
                   <div key={location} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.ctvAppTechnical.dataCenters.includes(location)}
                       onChange={() => handleCtvAppCheckbox('dataCenters', location)}
                     />
@@ -1985,7 +1985,7 @@ const App: React.FC = () => {
                   5.f. Do you make any first/third party data available to buyers/advertisers wanting to create PMPs?
                 </label>
                 <textarea
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                   rows={4}
                   value={formData.ctvAppTechnical.pmpData}
                   onChange={(e) => handleCtvAppChange('pmpData', e.target.value)}
@@ -2006,7 +2006,7 @@ const App: React.FC = () => {
                     <div key={category} className="flex items-center">
                       <input
                         type="checkbox"
-                        className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                        className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                         checked={formData.ctvAppTechnical.sensitiveCategories.includes(category)}
                         onChange={() => handleCtvAppCheckbox('sensitiveCategories', category)}
                       />
@@ -2030,7 +2030,7 @@ const App: React.FC = () => {
                   <div key={method} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.ctvAppTechnical.technicalSettings.impressionTracking.includes(method)}
                       onChange={() => handleTechnicalSettingsCheckbox('impressionTracking', method)}
                     />
@@ -2046,7 +2046,7 @@ const App: React.FC = () => {
                 6.b. (Specific to Mobile APP) - When is the BURL fired?
               </label>
               <select
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                 value={formData.ctvAppTechnical.technicalSettings.mobileAppTracking.burlTiming}
                 onChange={(e) => setFormData(prev => ({
                   ...prev,
@@ -2074,7 +2074,7 @@ const App: React.FC = () => {
                 6.c. (Specific to Mobile APP) - Do you track Interstitial ads any differently? If so please explain how is the tracking done)
               </label>
               <textarea
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                 rows={3}
                 value={formData.ctvAppTechnical.technicalSettings.mobileAppTracking.interstitialTracking}
                 onChange={(e) => setFormData(prev => ({
@@ -2099,7 +2099,7 @@ const App: React.FC = () => {
                 6.d. Do you have any other relevant information in regards to Impression Tracking that you would like to disclose?
               </label>
               <textarea
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                 rows={3}
                 value={formData.ctvAppTechnical.technicalSettings.mobileAppTracking.additionalInfo}
                 onChange={(e) => setFormData(prev => ({
@@ -2126,7 +2126,7 @@ const App: React.FC = () => {
                 <label className="block text-sm text-gray-700">3PID support? (Please list all that you support):</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                   value={formData.ctvAppTechnical.technicalSettings.networking.threePidSupport}
                   onChange={(e) => setFormData(prev => ({
                     ...prev,
@@ -2147,7 +2147,7 @@ const App: React.FC = () => {
               <div className="flex items-center">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                   checked={formData.ctvAppTechnical.technicalSettings.networking.skAdNetworkSupport}
                   onChange={(e) => setFormData(prev => ({
                     ...prev,
@@ -2169,7 +2169,7 @@ const App: React.FC = () => {
               <div className="flex items-center">
                 <input
                   type="checkbox"
-                  className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                   checked={formData.ctvAppTechnical.technicalSettings.networking.adPodsSupport}
                   onChange={(e) => setFormData(prev => ({
                     ...prev,
@@ -2199,7 +2199,7 @@ const App: React.FC = () => {
                 </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                   value={formData.ctvAppTechnical.technicalSettings.adQuality.qualityVendors}
                   onChange={(e) => setFormData(prev => ({
                     ...prev,
@@ -2233,7 +2233,7 @@ const App: React.FC = () => {
                   <div key={field} className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.ctvAppTechnical.technicalSettings.ortbRequirements[field]}
                       onChange={(e) => setFormData(prev => ({
                         ...prev,
@@ -2257,7 +2257,7 @@ const App: React.FC = () => {
                   <label className="block text-sm text-gray-700">What are your Impression Expiry Windows (in minutes)?</label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                     value={formData.ctvAppTechnical.technicalSettings.ortbRequirements.impressionExpiryWindow}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -2278,7 +2278,7 @@ const App: React.FC = () => {
                 <div className="flex items-center">
                   <input
                     type="checkbox"
-                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                     checked={formData.ctvAppTechnical.technicalSettings.ortbRequirements.maxTimeout}
                     onChange={(e) => setFormData(prev => ({
                       ...prev,
@@ -2308,7 +2308,7 @@ const App: React.FC = () => {
                   <div className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.ctvAppTechnical.technicalSettings.inventoryManagement.requiresMapping}
                       onChange={(e) => setFormData(prev => ({
                         ...prev,
@@ -2333,7 +2333,7 @@ const App: React.FC = () => {
                         If you do need support with mapping, please outline the level of granularity needed. e.g. having a CTV/APP split
                       </label>
                       <textarea
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                         rows={3}
                         value={formData.ctvAppTechnical.technicalSettings.inventoryManagement.mappingGranularity}
                         onChange={(e) => setFormData(prev => ({
@@ -2358,7 +2358,7 @@ const App: React.FC = () => {
                   <div className="flex items-center">
                     <input
                       type="checkbox"
-                      className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
                       checked={formData.ctvAppTechnical.technicalSettings.inventoryManagement.hasRevenueCaps}
                       onChange={(e) => setFormData(prev => ({
                         ...prev,
@@ -2383,7 +2383,7 @@ const App: React.FC = () => {
                         Please provide details about your revenue caps:
                       </label>
                       <textarea
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
                         rows={3}
                         value={formData.ctvAppTechnical.technicalSettings.inventoryManagement.revenueCapsDetails || ''}
                         onChange={(e) => setFormData(prev => ({
