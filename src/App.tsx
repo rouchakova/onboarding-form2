@@ -356,15 +356,28 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Add function to save form data
+  // Replace the existing saveFormData function with this one:
   const saveFormData = async (status: SubmissionStatus = 'draft') => {
     setLoading(true);
     try {
-      // For now, just show an alert
+      const formPayload = {
+        form_data: formData,
+        status: status,
+        updated_at: new Date().toISOString()
+      };
+
+      const { data, error } = await supabase
+        .from('forms')
+        .insert([formPayload])
+        .select()
+        .single();
+
+      if (error) throw error;
+
       if (status === 'submitted') {
         alert('Form submitted successfully!');
       } else {
-        alert('Progress saved!');
+        alert('Progress saved! You can return to complete the form later.');
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
