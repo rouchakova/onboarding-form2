@@ -30,7 +30,7 @@ interface FormData {
     hasContentConsent: boolean;
   };
   supplementalContentLink?: string;
-  additionalInfo?: string;
+  supplementalInfo?: string;
   
   // Section 3: WEB Technical Info
   webTechnical: {
@@ -171,6 +171,10 @@ interface FormData {
     sdkVersions: string;
     appFramework: string;
   };
+
+  firstName: string;
+  lastName: string;
+  email: string;
 }
 
 type FormSection = 'generic' | 'web' | 'ctvapp';
@@ -322,7 +326,7 @@ const App: React.FC = () => {
       hasContentConsent: false
     },
     supplementalContentLink: '',
-    additionalInfo: '',
+    supplementalInfo: '',
     
     // Section 3: WEB Technical Info
     webTechnical: {
@@ -462,7 +466,11 @@ const App: React.FC = () => {
       adServerPlatforms: [],
       sdkVersions: '',
       appFramework: ''
-    }
+    },
+
+    firstName: '',
+    lastName: '',
+    email: ''
   });
 
   // Add these state variables
@@ -736,9 +744,53 @@ const App: React.FC = () => {
               <span className="text-red-500">*</span> Indicates a required field
             </div>
 
-            <h2 className="text-xl font-bold">Inventory Mix</h2>
+            <h2 className="text-xl font-bold">Sellers Information</h2>
             
-            {/* Business Information */}
+            {/* Personal Info */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  First Name
+                  <RequiredIndicator />
+                </label>
+                <input
+                  type="text"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
+                  value={formData.firstName}
+                  onChange={(e) => handleInputChange('firstName', e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Last Name
+                  <RequiredIndicator />
+                </label>
+                <input
+                  type="text"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
+                  value={formData.lastName}
+                  onChange={(e) => handleInputChange('lastName', e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Email
+                <RequiredIndicator />
+              </label>
+              <input
+                type="email"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
+                value={formData.email}
+                onChange={(e) => handleInputChange('email', e.target.value)}
+                required
+              />
+            </div>
+
+            {/* Existing business name and domain fields */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
@@ -827,65 +879,10 @@ const App: React.FC = () => {
               )}
             </div>
 
-            {/* Environments */}
-            <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">
-                1.b. Please select all Environments in which you operate
-                <RequiredIndicator />
-              </label>
-              <div className="space-y-2">
-                {['Mobile In-App', 'Desktop In-App', 'CTV/OTT', 'WEB', 'OOH'].map((env) => (
-                  <div key={env} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={`env-${env}`}
-                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
-                      checked={formData.environments.includes(env)}
-                      onChange={(e) => handleCheckboxChange('environments', env)}
-                    />
-                    <label htmlFor={`env-${env}`} className="ml-2 text-sm text-gray-600">
-                      {env}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Formats */}
-            <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">
-                1.c. Please select all Formats you support
-                <RequiredIndicator />
-              </label>
-              <div className="space-y-2">
-                {[
-                  'Display',
-                  'Video',
-                  'Interstitial - WEB',
-                  'Interstitial - APP',
-                  'Native - WEB',
-                  'Native - APP'
-                ].map((format) => (
-                  <div key={format} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id={`format-${format}`}
-                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
-                      checked={formData.formats.includes(format)}
-                      onChange={(e) => handleCheckboxChange('formats', format)}
-                    />
-                    <label htmlFor={`format-${format}`} className="ml-2 text-sm text-gray-600">
-                      {format}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Operation Type */}
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                1.d. Please select your Operation Type
+                1.b. Please select your Operation Type
                 <RequiredIndicator />
               </label>
               <select
@@ -927,6 +924,62 @@ const App: React.FC = () => {
                   • Sovrn will only be accepting in-app traffic that is 4 hops or less<br />
                   • Sovrn requires that all direct OOH traffic is set to Device Type 8; all Indirect OOH traffic must adhere to the updated oRTB OOH spec
                 </p>
+              </div>
+            </div>
+
+            <h2 className="text-xl font-bold mt-8">Inventory Mix</h2>
+
+            {/* Environments */}
+            <div className="space-y-4">
+              <label className="block text-sm font-medium text-gray-700">
+                2.a. Please select all Environments in which you operate
+                <RequiredIndicator />
+              </label>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  'WEB',
+                  'Mobile In-App',
+                  'Desktop In-App',
+                  'CTV/OTT'
+                ].map((environment) => (
+                  <div key={environment} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
+                      checked={formData.environments.includes(environment)}
+                      onChange={(e) => handleCheckboxChange('environments', environment)}
+                    />
+                    <label className="ml-2 text-sm text-gray-600">{environment}</label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Formats */}
+            <div className="space-y-4">
+              <label className="block text-sm font-medium text-gray-700">
+                2.b. Please select all formats in which you operate:
+                <RequiredIndicator />
+              </label>
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  'Display',
+                  'Video',
+                  'Interstitial - WEB',
+                  'Native - WEB',
+                  'Interstitial - APP',
+                  'Native - APP'
+                ].map((format) => (
+                  <div key={format} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
+                      checked={formData.formats.includes(format)}
+                      onChange={(e) => handleCheckboxChange('formats', format)}
+                    />
+                    <label className="ml-2 text-sm text-gray-600">{format}</label>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -1040,169 +1093,6 @@ const App: React.FC = () => {
                   onChange={(e) => handleInputChange('otherAppStores', e.target.value)}
                 />
               </div>
-            </div>
-
-            <h2 className="text-xl font-bold mt-8">Seller Information</h2>
-
-            {/* Intermediary Information */}
-            <div className="space-y-4">
-              <h3 className="font-medium">
-                2.a. For Entities Acting as An Intermediary:
-                {isIntermediarySelected(formData) && <RequiredIndicator />}
-              </h3>
-              
-              <div className="space-y-4">
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
-                    checked={formData.intermediaryInfo.handlesPayments}
-                    onChange={(e) => setFormData(prev => ({
-                      ...prev,
-                      intermediaryInfo: {
-                        ...prev.intermediaryInfo,
-                        handlesPayments: e.target.checked
-                      }
-                    }))}
-                  />
-                  <label className="ml-2 text-sm text-gray-600">
-                    Do you handle payment to the publishers you work with?
-                  </label>
-                </div>
-
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
-                    checked={formData.intermediaryInfo.supportsSupplyChain}
-                    onChange={(e) => setFormData(prev => ({
-                      ...prev,
-                      intermediaryInfo: {
-                        ...prev.intermediaryInfo,
-                        supportsSupplyChain: e.target.checked
-                      }
-                    }))}
-                  />
-                  <label className="ml-2 text-sm text-gray-600">
-                    Do you support the SupplyChain Object (schain) in the bid request?
-                  </label>
-                </div>
-
-                <div>
-                <label className="block text-sm font-medium text-gray-700">
-                    Please provide a rough estimate of the proportion of your inventory accessed directly from the Publisher vs indirectly through other intermediaries:
-                </label>
-                  <select
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
-                    value={formData.intermediaryInfo.inventoryProportion}
-                    onChange={(e) => setFormData(prev => ({
-                      ...prev,
-                      intermediaryInfo: {
-                        ...prev.intermediaryInfo,
-                        inventoryProportion: e.target.value
-                      }
-                    }))}
-                  >
-                    <option value="">Select proportion</option>
-                    <option value="0-25">0-25% Direct / 75-100% Indirect</option>
-                    <option value="26-50">26-50% Direct / 50-74% Indirect</option>
-                    <option value="51-75">51-75% Direct / 25-49% Indirect</option>
-                    <option value="76-100">76-100% Direct / 0-24% Indirect</option>
-                  </select>
-                </div>
-
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
-                    checked={formData.intermediaryInfo.canSegmentInventory}
-                    onChange={(e) => setFormData(prev => ({
-                      ...prev,
-                      intermediaryInfo: {
-                        ...prev.intermediaryInfo,
-                        canSegmentInventory: e.target.checked
-                      }
-                    }))}
-                  />
-                  <label className="ml-2 text-sm text-gray-600">
-                    Do you have the capability to segment out and target toward your directly accessed vs indirectly accessed supply?
-                  </label>
-              </div>
-              </div>
-            </div>
-
-            {/* APP/CTV Platform Questions */}
-            <div className="space-y-4">
-              <h3 className="font-medium">2.b. For MVPD/FAST Platforms and Select App Developers:</h3>
-              
-              <div className="space-y-4">
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
-                    checked={formData.appCtvInfo.displaysThirdPartyContent}
-                    onChange={(e) => setFormData(prev => ({
-                      ...prev,
-                      appCtvInfo: {
-                        ...prev.appCtvInfo,
-                        displaysThirdPartyContent: e.target.checked
-                      }
-                    }))}
-                  />
-                  <label className="ml-2 text-sm text-gray-600">
-                    Does your platform/app display content licensed by third-parties?
-                  </label>
-                </div>
-
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 text-yellow-300 focus:ring-yellow-300 border-gray-300 rounded"
-                    checked={formData.appCtvInfo.hasContentConsent}
-                    onChange={(e) => setFormData(prev => ({
-                      ...prev,
-                      appCtvInfo: {
-                        ...prev.appCtvInfo,
-                        hasContentConsent: e.target.checked
-                      }
-                    }))}
-                  />
-                  <label className="ml-2 text-sm text-gray-600">
-                    Do you have readily available documentation expressing the content owner's consent to display and monetize their content?
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* Supplemental Content Solutions */}
-            <div className="space-y-4">
-              <h3 className="font-medium">2.c. For Supplemental Content Solutions or Syndication Partners:</h3>
-              
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  If available, please link to collateral demonstrating the nature of this offering:
-                </label>
-                <input
-                  type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
-                  placeholder="i.e. where and when the content displays in the third-party application, what the display looks like, etc."
-                  value={formData.supplementalContentLink}
-                  onChange={(e) => handleInputChange('supplementalContentLink', e.target.value)}
-                />
-              </div>
-            </div>
-
-            {/* Additional Information */}
-            <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">
-                Anything else you'd like us to know about your offering?
-              </label>
-              <textarea
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
-                rows={4}
-                value={formData.additionalInfo}
-                onChange={(e) => handleInputChange('additionalInfo', e.target.value)}
-              />
             </div>
           </div>
         );
@@ -2451,11 +2341,14 @@ const App: React.FC = () => {
   // COPPA Regulation
   const validateGenericSection = (): boolean => {
     const baseValidation = 
+      formData.firstName !== '' &&
+      formData.lastName !== '' &&
+      formData.email !== '' &&
+      formData.businessName !== '' &&
+      formData.businessDomain !== '' &&
       formData.environments.length > 0 &&
       formData.formats.length > 0 &&
       formData.operationType !== '' &&
-      formData.businessName !== '' &&
-      formData.businessDomain !== '' &&
       formData.hasSellersJson !== undefined &&
       (formData.hasSellersJson === false || (formData.hasSellersJson === true && formData.sellersJsonUrl !== '')) &&
       formData.childDirectedPortion !== '' &&
