@@ -55,7 +55,9 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
         REACT_APP_SUPABASE_URL: JSON.stringify(process.env.REACT_APP_SUPABASE_URL),
-        REACT_APP_SUPABASE_ANON_KEY: JSON.stringify(process.env.REACT_APP_SUPABASE_ANON_KEY)
+        REACT_APP_SUPABASE_ANON_KEY: JSON.stringify(process.env.REACT_APP_SUPABASE_ANON_KEY),
+        JIRA_API_URL: JSON.stringify(process.env.REACT_APP_JIRA_API_URL),
+        JIRA_PROJECT_KEY: JSON.stringify(process.env.REACT_APP_JIRA_PROJECT_KEY)
       },
     }),
   ],

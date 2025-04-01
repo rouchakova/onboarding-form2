@@ -172,8 +172,7 @@ interface FormData {
     appFramework: string;
   };
 
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
 }
 
@@ -221,11 +220,17 @@ const calculateProgress = (formData: FormData, webRequired: boolean, ctvAppRequi
 
   // Generic section required fields
   const genericRequired = [
-    formData.environments.length > 0,
-    formData.formats.length > 0,
-    formData.operationType !== '',
-    formData.businessName !== '',
-    formData.businessDomain !== '',
+    formData.name !== '',                    // Name
+    formData.email !== '',                   // Email
+    formData.businessName !== '',            // Business Name
+    formData.businessDomain !== '',          // Business Domain
+    formData.hasSellersJson !== undefined,   // Sellers.json question
+    formData.operationType !== '',           // Operation Type
+    formData.environments.length > 0,        // Environments
+    formData.formats.length > 0,             // Formats
+    formData.sellerCategories.ownedAndOperated.length > 0 || 
+    formData.sellerCategories.intermediary.length > 0,  // Seller Categories
+    formData.childDirectedPortion !== ''     // COPPA Regulation
   ];
 
   // Web Technical section required fields (only if Web is selected)
@@ -233,11 +238,9 @@ const calculateProgress = (formData: FormData, webRequired: boolean, ctvAppRequi
     formData.webTechnical.integrationMethods.length > 0,
     formData.webTechnical.preferredIntegration !== '',
     formData.webTechnical.requestVolume.display !== '' || formData.webTechnical.requestVolume.video !== '',
-    Object.values(formData.webTechnical.trafficPercentage.display).some(v => v !== ''),
-    formData.webTechnical.dataCenters.length > 0,
-    formData.webTechnical.adServerPlatforms.length > 0,
-    formData.webTechnical.headerBiddingType !== '',
-    formData.webTechnical.timeoutSettings !== ''
+    Object.values(formData.webTechnical.trafficPercentage.display).some(v => v !== '') ||
+    Object.values(formData.webTechnical.trafficPercentage.video).some(v => v !== ''),
+    formData.webTechnical.dataCenters.length > 0
   ] : [];
 
   // CTV/APP Technical section required fields (only if CTV/APP is selected)
@@ -245,23 +248,32 @@ const calculateProgress = (formData: FormData, webRequired: boolean, ctvAppRequi
     formData.ctvAppTechnical.integrationMethods.length > 0,
     formData.ctvAppTechnical.preferredIntegration !== '',
     formData.ctvAppTechnical.requestVolume.ctv !== '' || formData.ctvAppTechnical.requestVolume.inApp !== '',
-    Object.values(formData.ctvAppTechnical.trafficPercentage.inApp).some(v => v !== ''),
-    formData.ctvAppTechnical.dataCenters.length > 0,
-    formData.ctvAppTechnical.adServerPlatforms.length > 0,
-    formData.ctvAppTechnical.sdkVersions !== '' && formData.ctvAppTechnical.appFramework !== '',
+    Object.values(formData.ctvAppTechnical.trafficPercentage.inApp).some(v => v !== '') ||
+    Object.values(formData.ctvAppTechnical.trafficPercentage.ctv).some(v => v !== ''),
+    formData.ctvAppTechnical.dataCenters.length > 0
   ] : [];
 
-  // Count total and filled fields
+  // Add conditional fields
+  if (formData.hasSellersJson) {
+    genericRequired.push(formData.sellersJsonUrl !== '');
+  }
+  
+  if (isAppRelated(formData)) {
+    genericRequired.push(formData.appStores.length > 0);
+  }
+
+  // Calculate totals
   totalFields = genericRequired.length + 
                 (webRequired ? webFields.length : 0) + 
                 (ctvAppRequired ? ctvFields.length : 0);
   
-  filledFields += genericRequired.filter(Boolean).length;
-  filledFields += webFields.filter(Boolean).length;
-  filledFields += ctvFields.filter(Boolean).length;
+  filledFields = genericRequired.filter(Boolean).length +
+                 webFields.filter(Boolean).length +
+                 ctvFields.filter(Boolean).length;
 
-  // Calculate percentage
-  return Math.round((filledFields / totalFields) * 100);
+  // Calculate percentage and ensure it's between 0 and 100
+  const percentage = Math.round((filledFields / totalFields) * 100);
+  return Math.min(Math.max(percentage, 0), 100);
 };
 
 // Add this component at the top of your file, before the App component
@@ -468,8 +480,7 @@ const App: React.FC = () => {
       appFramework: ''
     },
 
-    firstName: '',
-    lastName: '',
+    name: '',
     email: ''
   });
 
@@ -482,11 +493,11 @@ const App: React.FC = () => {
 
   // Update progress whenever form data changes
   useEffect(() => {
-    const webRequired = hasWebOptions(formData);
-    const ctvAppRequired = hasCtvAppOptions(formData);
+    const webRequired = isWebRelated(formData);
+    const ctvAppRequired = isCtvAppRelated(formData);
     const newProgress = calculateProgress(formData, webRequired, ctvAppRequired);
     setProgress(newProgress);
-  }, [formData]);
+  }, [formData]); // Add formData as a dependency
 
   // Replace the existing saveFormData function with this one:
   const saveFormData = async (status: SubmissionStatus = 'draft') => {
@@ -750,44 +761,30 @@ const App: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  First Name
+                  Name
                   <RequiredIndicator />
                 </label>
                 <input
                   type="text"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
-                  value={formData.firstName}
-                  onChange={(e) => handleInputChange('firstName', e.target.value)}
+                  value={formData.name}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
                   required
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  Last Name
+                  Email
                   <RequiredIndicator />
                 </label>
                 <input
-                  type="text"
+                  type="email"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
-                  value={formData.lastName}
-                  onChange={(e) => handleInputChange('lastName', e.target.value)}
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
                   required
                 />
               </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Email
-                <RequiredIndicator />
-              </label>
-              <input
-                type="email"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-300 focus:ring-yellow-300"
-                value={formData.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
-                required
-              />
             </div>
 
             {/* Existing business name and domain fields */}
@@ -990,7 +987,7 @@ const App: React.FC = () => {
                 <RequiredIndicator />
               </label>
               
-              <div className="space-y-4">
+            <div className="space-y-4">
                 <h3 className="font-medium">Owned & Operated:</h3>
                 <div className="grid grid-cols-1 gap-2">
                 {[
@@ -2341,8 +2338,7 @@ const App: React.FC = () => {
   // COPPA Regulation
   const validateGenericSection = (): boolean => {
     const baseValidation = 
-      formData.firstName !== '' &&
-      formData.lastName !== '' &&
+      formData.name !== '' &&
       formData.email !== '' &&
       formData.businessName !== '' &&
       formData.businessDomain !== '' &&
@@ -2373,7 +2369,7 @@ const App: React.FC = () => {
           <h1 className="text-3xl font-bold text-gray-900">
             Sovrn Technical RFI
           </h1>
-        </div>
+      </div>
       </header>
 
       {/* Sticky Header */}
